@@ -1,9 +1,16 @@
 services:
   - type: web
-    runtime: static
-    name: m4-gt4-mileage
-    staticPublishPath: .
-    headers:
-      - path: /*
-        name: Cache-Control
-        value: no-cache
+    name: bmw-m4-gt4-mileage
+    runtime: node
+    plan: free
+    branch: main
+    buildCommand: echo "nessuna build"
+    startCommand: node server.js
+    healthCheckPath: /healthz
+    envVars:
+      - key: GITHUB_TOKEN
+        sync: false
+      - key: GITHUB_REPO
+        sync: false
+      - key: DATA_BRANCH
+        value: data

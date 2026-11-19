@@ -150,6 +150,81 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 @media(max-width:700px){.row{grid-template-columns:minmax(0,1fr) auto}.row .lf{grid-column:1/-1;grid-row:2}.f2{grid-template-columns:minmax(0,1fr)}.odo{text-align:left}.save{margin-left:0;width:100%}}
 @media(max-width:600px){.hd.mini .sub,.hd.mini .odo span,.hd.mini .save,.hd.mini .carsel{display:none}.hd.mini .car{flex-direction:row;align-items:baseline;gap:10px}.hd.mini h1{font-size:20px}.hd.mini .odo b{font-size:26px}.hd.mini .hdrow{flex-wrap:nowrap;justify-content:space-between}.hd.mini .acts{flex-wrap:nowrap;overflow-x:auto;gap:6px;scrollbar-width:none}.hd.mini .acts .btn{flex:none}.hd.mini .acts .btn{font-size:13px;padding:0 10px}table{font-size:13px}th,td{padding:6px 4px}.hide-s{display:none}}
 @media(prefers-reduced-motion:no-preference){.bar i{transition:width .5s ease}}
+
+:root{--yel:light-dark(#c99700,#ffd43b);--org:light-dark(#e06400,#ff9a3c)}
+.hb{background:none;border:0;padding:0;cursor:pointer;display:block;max-width:42%}
+.hb .fs{max-width:100%!important}
+.home{background:var(--carbon);color:#f3f4f6;min-height:100vh;min-height:100svh;padding:22px 0 40px}
+.hh{font:700 clamp(36px,5vw,56px)/1.05 "Barlow Condensed",sans-serif;margin:18px 0 4px}
+.hsub{color:#a9b0ba;margin:0}
+.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:24px}
+.tile{position:relative;overflow:hidden;background:#15191e;border:1px solid #2a2f36;border-radius:18px;padding:24px;text-align:left;color:#f3f4f6;cursor:pointer;display:flex;flex-direction:column;gap:8px;min-height:250px;font:inherit}
+.tile:hover{border-color:#2f7bff}
+.tile:focus-visible{outline:2px solid #5b9bff;outline-offset:3px}
+.tile .tk{font:600 26px/1 "Barlow Condensed",sans-serif;color:#fff;position:relative}
+.tile b{font:700 clamp(44px,6vw,68px)/1 "Barlow Condensed",sans-serif;font-variant-numeric:tabular-nums;position:relative}
+.tile .ti{color:#a9b0ba;font-size:15px;display:flex;flex-wrap:wrap;gap:6px;position:relative;max-width:62%}
+.tile em{font-style:normal;font-weight:600;font-size:13px;border-radius:6px;padding:2px 8px;background:#22272e}
+.tile em.r{color:#ff5a4f}.tile em.a,.tile em.y{color:#ffd43b}.tile em.o{color:#ff9a3c}.tile em.g{color:#3fcf82}
+.tile .goin{margin-top:auto;font-weight:600;color:#7fb0ff;position:relative}
+.tile svg{position:absolute;right:-24px;bottom:-24px;width:190px;height:190px}
+.hfoot{color:#a9b0ba;font-size:14px;margin-top:22px}
+.lnk{background:none;border:0;color:#7fb0ff;cursor:pointer;padding:0;font:inherit;text-decoration:underline}
+.gate{min-height:100vh;min-height:100svh;background:var(--carbon);display:flex;align-items:center;justify-content:center;padding:24px 16px}
+.gcard{width:min(440px,100%);background:#15191e;border:1px solid #2a2f36;border-radius:18px;padding:24px;color:#f3f4f6}
+.gcard .logos{border-color:#2a2f36}
+.gcard h1{margin:6px 0 4px}
+.glead{color:#a9b0ba;margin:0 0 16px}
+.gcard .fld input{background:#0d1014;border-color:#333a43;color:#f3f4f6}
+.gerr{color:#ff6b61;font-size:14px;min-height:20px;margin:4px 0 10px}
+.offline{position:fixed;inset:0;z-index:50;background:rgba(10,12,15,.85);display:flex;align-items:center;justify-content:center;padding:20px}
+.offline>div{background:#15191e;color:#fff;border-radius:16px;padding:24px;max-width:420px;text-align:center;border:1px solid #ff5a4f}
+.ty-tools{display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:22px 0 12px}
+.seg2{display:flex;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.seg2 button{border:0;background:none;min-height:46px;padding:0 18px;font:600 19px "Barlow Condensed",sans-serif;cursor:pointer;color:var(--mut);white-space:nowrap}
+.seg2 button small{font:500 14px Barlow,sans-serif;opacity:.8;margin-left:4px}
+.seg2 button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.sel{border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:0 10px;min-height:40px}
+.chk{display:flex;gap:8px;align-items:center;font-size:14px;cursor:pointer;min-height:40px}
+.chk input{width:18px;height:18px}
+.tally4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.t4{--lc:var(--grn);background:var(--panel);border:1px solid var(--line);border-top:5px solid var(--lc);border-radius:12px;padding:12px 14px;text-align:left;cursor:pointer}
+.t4 b{display:block;font:700 34px/1 "Barlow Condensed",sans-serif;color:var(--lc)}
+.t4 span{font-size:14px;color:var(--mut)}
+.t4[aria-pressed=true]{outline:2px solid var(--ink)}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;padding:16px 0 10px}
+.tc{--lc:var(--grn);text-align:left;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-left:7px solid var(--lc);border-radius:12px;padding:14px 16px;cursor:pointer;display:flex;flex-direction:column;gap:6px;font:inherit}
+.tc.l1,.tc.l2,.tc.l3{background:color-mix(in srgb,var(--lc) 11%,var(--bg))}
+.tc:hover{border-color:var(--mut)}
+.tc.l1,.t4.l1,.tkv.l1{--lc:var(--yel)}.tc.l2,.t4.l2,.tkv.l2{--lc:var(--org)}.tc.l3,.t4.l3,.tkv.l3{--lc:var(--red)}
+.tc.done{opacity:.5;--lc:var(--mut)}
+.ttop{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.tn{font:700 38px/1 "Barlow Condensed",sans-serif;font-variant-numeric:tabular-nums}
+.tags{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.tag.slick{background:light-dark(#fff3cc,#3a3010);border-color:light-dark(#f1d27a,#5c4b17)}
+.tag.rain{background:light-dark(#dbe8ff,#132744);border-color:light-dark(#b5ccf7,#24426d)}
+.tk2{font-size:15px;color:var(--mut)}
+.tk2 b{font:700 30px/1 "Barlow Condensed",sans-serif;color:var(--lc);font-variant-numeric:tabular-nums}
+.tc.l0 .tk2 b{color:var(--ink)}
+.tbar{position:relative;height:8px;background:var(--track);border-radius:4px;overflow:hidden}
+.tbar i{position:absolute;left:0;top:0;bottom:0;background:var(--lc);border-radius:4px}
+.tbar u{position:absolute;top:0;bottom:0;width:2px;background:var(--bg)}
+.tl{font-size:14px;font-weight:600;color:var(--lc)}
+.tc.l0 .tl{color:var(--mut);font-weight:500}
+.tm{font-size:13px;color:var(--mut)}
+.strow{display:grid;grid-template-columns:minmax(0,1fr) 96px 44px;gap:8px;margin-bottom:8px}
+.strow select,.strow input{border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:8px 10px;min-height:44px;font-size:16px;width:100%}
+.strow .btn{min-height:44px}
+.f3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 12px}
+.tkv{border-left:6px solid var(--lc)}
+.tkv b{color:var(--lc)}
+.tkv.l0{--lc:var(--grn)}
+.pos4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:12px}
+.pos4 div{background:var(--panel);border-radius:10px;padding:8px 10px}
+.pos4 span{display:block;font-size:12px;color:var(--mut)}
+.pos4 b{font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+@media(max-width:700px){.tiles{grid-template-columns:minmax(0,1fr)}.tile{min-height:200px}.tile svg{width:150px;height:150px}.tally4{grid-template-columns:repeat(2,minmax(0,1fr))}.pos4{grid-template-columns:repeat(2,minmax(0,1fr))}.f3{grid-template-columns:repeat(3,minmax(0,1fr))}}
 </style>
 <script id="state" type="application/json">null</script>
 </head>
@@ -319,8 +394,13 @@ const days=(a,b)=>Math.round((new Date(a+'T12:00')-new Date(b+'T12:00'))/864e5);
 const uid=()=>Math.random().toString(36).slice(2,9);
 const aft=(x,r)=>x.d>r.d||(x.d===r.d&&x.s>r.s);
 
+
+/* ---------- sincronizzazione online (server su Render + archivio GitHub) ---------- */
+const IN_CLAUDE=/claude\.ai|claudeusercontent|anthropic/.test(location.hostname);
+const TRY_SERVER=/^https?:$/.test(location.protocol)&&!IN_CLAUDE;
+
 /* ---------- stato ---------- */
-let S;
+let S=null;let lastSeq=0;const nseq=()=>lastSeq=Math.max(lastSeq+1,Date.now());
 function makeComps(start,d){
   const out=[],seen={};
   CAT.forEach((k,i)=>{
@@ -339,28 +419,110 @@ function newCar(name,chassis,initKm,same,d){
 }
 function demo(){
   const c=newCar('M4 GT4 EVO #1','WBS-DEMO-0001',0,true,'2025-11-01');c.demo=true;
+  const T=[],id={};
+  const mk=(num,use,type,ev,done)=>{const t={id:'t'+num,num,use,type,ev,serial:{as:'',ad:'',ps:'',pd:''},startKm:0,done:!!done,note:'',created:'2026-03-01'};T.push(t);id[num]=t.id};
+  [40,41,42].forEach(n=>mk(n,'Gara','Slick','Monza',n<42));[43,44].forEach(n=>mk(n,'Gara','Slick','Imola'));[45,46].forEach(n=>mk(n,'Gara','Slick','Misano'));mk(47,'Gara','Slick','Mugello');[48,49,50].forEach(n=>mk(n,'Gara','Slick','Paul Ricard'));[51,52,53].forEach(n=>mk(n,'Gara','Slick','Barcellona'));[54,55,56].forEach(n=>mk(n,'Gara','Slick','Finale 2026'));
+  [30,31,32,33,34,35,36,37].forEach(n=>mk(n,'Test','Slick','Test 2026',n<33));
+  [12,13,14,15].forEach(n=>mk(n,'Gara','Rain','Stagione 2026'));[5,6].forEach(n=>mk(n,'Test','Rain','Test 2026'));
+  const plan=[[[30,180],[31,140],[5,100]],[[40,220],[41,160],[42,130],[12,100]],[[42,90],[43,200],[44,170],[32,220]],[[44,40],[45,190],[46,160],[13,80],[33,120]],[[46,30],[47,230],[34,210],[14,120],[31,130]],[[48,210],[49,170],[35,160],[50,150],[32,150]],[[51,200],[52,160],[53,130],[36,120],[49,30],[50,120]],[[37,140],[36,60],[53,50],[54,50]]];
   let s=1;
-  [['2026-03-14','Vallelunga – test','Test',420],['2026-04-12','Monza – prove e gare','Gara',610],['2026-05-17','Imola – weekend','Gara',680],['2026-06-21','Misano – weekend','Gara',590],['2026-07-19','Mugello – weekend','Gara',720],['2026-09-13','Paul Ricard – weekend','Gara',840],['2026-10-18','Barcellona – weekend','Gara',760],['2026-11-08','Varano – test','Test',300]].forEach(e=>{c.events.push({id:uid(),d:e[0],s:s++,title:e[1],type:e[2],km:e[3],note:''})});
+  [['2026-03-14','Vallelunga – test','Test'],['2026-04-12','Monza – prove e gare','Gara'],['2026-05-17','Imola – weekend','Gara'],['2026-06-21','Misano – weekend','Gara'],['2026-07-19','Mugello – weekend','Gara'],['2026-09-13','Paul Ricard – weekend','Gara'],['2026-10-18','Barcellona – weekend','Gara'],['2026-11-08','Varano – test','Test']].forEach((e,i)=>{const st=plan[i].map(([n,k])=>({set:id[n],km:k}));c.events.push({id:uid(),d:e[0],s:s++,title:e[1],type:e[2],km:st.reduce((a,x)=>a+x.km,0),stints:st,note:''})});
   const r={d:'2026-06-28',s:s++};
   ['c3','c4','c5','c6'].forEach(id=>{const x=c.comps.find(k=>k.id===id);c.log.push({id:uid(),t:'rep',d:r.d,s:r.s,cid:id,name:x.name,pn:x.pn,km:kmAt(c,x,r),note:'Tagliando di metà stagione',prev:snap(x)});x.inst=r;x.startKm=0;x.svcStart=0;x.svcAt=null});
   const r2={d:'2026-07-25',s:s++};c.comps.forEach(x=>{if(x.svc&&x.svc<=5000){c.log.push({id:uid(),t:'svc',d:r2.d,s:r2.s,cid:x.id,name:x.name,pn:x.pn,km:kmAt(c,x,r2),note:'Controllo 5.000 km',prev:snap(x)});x.svcAt={...r2}}});
   c.comps.forEach(x=>{if(x.pn==='8447757')x.exp='2030-12-31';if(x.pn==='8417339')x.exp='2029-12-31';if(x.pn==='7744033')x.exp='2026-12-31';if(x.pn==='8417489')x.exp='2028-12-31'});
-  return {v:1,rev:0,seq:s,cur:c.id,warn:85,warnDays:60,cars:[c]};
+  return {v:2,rev:0,cur:c.id,warn:85,warnDays:60,tlim:[100,150,200],cars:[c],tyres:T};
 }
+function blankState(){const c=newCar('M4 GT4 EVO #1','',0,false,TODAY);return {v:2,rev:0,cur:c.id,warn:85,warnDays:60,tlim:[100,150,200],cars:[c],tyres:[]}}
+function migrate(s){if(!s||!Array.isArray(s.cars))return s;s.tyres=s.tyres||[];s.tlim=s.tlim||[100,150,200];s.cars.forEach(c=>c.events.forEach(e=>{if(!e.stints)e.stints=[]}));delete s.seq;return s}
 function kmAt(car,x,ref){let k=x.startKm;for(const e of car.events)if(aft(e,x.inst)&&!aft(e,ref))k+=e.km;return k}
 function sumAft(car,ref){let k=0;for(const e of car.events)if(aft(e,ref))k+=e.km;return k}
 function snap(x){return JSON.parse(JSON.stringify({inst:x.inst,startKm:x.startKm,svcStart:x.svcStart,svcAt:x.svcAt,exp:x.exp,sn:x.sn,pick:x.pick}))}
+let pending=false;
 function load(){
   let emb=null,ls=null;
   try{emb=JSON.parse(document.getElementById('state').textContent)}catch(e){}
   try{ls=JSON.parse(localStorage.getItem('m4gt4-mileage'))}catch(e){}
-  if(ls&&(!emb||ls.rev>emb.rev)){pending=true;return ls}
-  return emb||demo();
+  if(ls&&ls.cars&&(!emb||ls.rev>emb.rev)){pending=true;return migrate(ls)}
+  return migrate(emb)||demo();
 }
-let pending=false;
-S=load();
 const car=()=>S.cars.find(c=>c.id===S.cur)||S.cars[0];
 const total=c=>c.initKm+c.events.reduce((a,e)=>a+e.km,0);
+
+/* ---------- gomme ---------- */
+const tyreById=id=>S.tyres.find(t=>t.id===id);
+function tkm(t){let k=+t.startKm||0;for(const c of S.cars)for(const e of c.events)for(const s of e.stints||[])if(s.set===t.id)k+=+s.km||0;return k}
+function tuses(t){const o=[];for(const c of S.cars)for(const e of c.events)for(const s of e.stints||[])if(s.set===t.id)o.push({c,e,km:+s.km||0});return o.sort((a,b)=>a.e.d.localeCompare(b.e.d)||a.e.s-b.e.s)}
+function tlev(k){const L=S.tlim;return k>L[2]?3:k>L[1]?2:k>L[0]?1:0}
+function tlab(l){const L=S.tlim;return ['Sotto i '+L[0]+' km','Allarme giallo · oltre '+L[0]+' km','Allarme arancio · oltre '+L[1]+' km','Allarme rosso · oltre '+L[2]+' km'][l]}
+
+/* ---------- salvataggio ---------- */
+let art=null,ro=false,ptimer=null,saveMsg='Solo su questo dispositivo';
+const undo=[];
+let cloud=null,lastBy='',lastAt=0,online=navigator.onLine,fatal='';
+const me=()=>cloud&&cloud.user?cloud.user.email:'';
+const who=e=>e?String(e).split('@')[0]:'';
+const hm=t=>{const d=new Date(t);return pad(d.getDate())+'/'+pad(d.getMonth()+1)+' '+pad(d.getHours())+':'+pad(d.getMinutes())};
+const syncTxt=()=>(cloud&&cloud.persisted===false?'Online · ATTENZIONE: archivio GitHub non configurato':'Online · aggiornato in diretta')+(lastAt?' · ultima modifica '+hm(lastAt):'');
+function stamp(){const m=me();if(!m)return;for(const c of S.cars){for(const e of c.events)if(!e.by)e.by=m;for(const l of c.log)if(!l.by)l.by=m}for(const t of S.tyres)if(!t.by)t.by=m}
+function applyInPlace(n){
+  n=migrate(n);const cur=S&&S.cur;const old=S?S.cars:[];
+  n.cars=n.cars.map(nc=>{const o=old.find(x=>x.id===nc.id);if(o){for(const k of Object.keys(o))delete o[k];Object.assign(o,nc);return o}return nc});
+  if(!S)S={};for(const k of Object.keys(S))if(!(k in n))delete S[k];Object.assign(S,n);
+  S.cur=cur&&S.cars.some(c=>c.id===cur)?cur:(S.cars[0]&&S.cars[0].id);
+}
+async function mutate(fn,msg){
+  if(cloud){
+    if(!online||!cloud.ok){toast('Connessione assente: la modifica non è stata salvata');return}
+    const prev=JSON.stringify(S);setSave('Salvataggio…');
+    try{
+      for(let i=0;i<4;i++){
+        fn();S.rev=Date.now();
+        const r=await fetch('/api/state',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({base:cloud.rev,json:JSON.stringify(S)})});
+        const d=await r.json();
+        if(r.status===409){applyServer(d);continue}
+        if(!r.ok)throw new Error(d.err||('errore '+r.status));
+        undo.push({prev,rev:d.rev});if(undo.length>25)undo.shift();
+        cloud.rev=d.rev;lastAt=d.at;setSave(syncTxt());render();if(msg)toast(msg,true);return;
+      }
+      throw new Error('troppe modifiche contemporanee, riprova');
+    }catch(e){applyInPlace(JSON.parse(prev));render();setSave('Errore di salvataggio');toast('Salvataggio non riuscito: '+(e&&e.message||e))}
+    return;
+  }
+  undo.push({prev:JSON.stringify(S)});if(undo.length>25)undo.shift();
+  fn();S.rev=Date.now();
+  try{localStorage.setItem('m4gt4-mileage',JSON.stringify(S))}catch(e){}
+  render();if(msg)toast(msg,true);schedule();
+}
+async function doUndo(){
+  const u=undo.pop();if(!u)return;const el=$('#toast');if(el)el.remove();
+  if(cloud){
+    try{
+      if(u.rev!==cloud.rev)throw new Error('changed');
+      const p=JSON.parse(u.prev);p.rev=Date.now();
+      const r=await fetch('/api/state',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({base:cloud.rev,json:JSON.stringify(p)})});
+      const d=await r.json();if(r.status===409)throw new Error('changed');if(!r.ok)throw new Error('x');
+      applyInPlace(p);cloud.rev=d.rev;lastAt=d.at;setSave(syncTxt());render();toast('Modifica annullata');
+    }catch(e){toast(e&&e.message==='changed'?'Non posso annullare: nel frattempo qualcun altro ha modificato i dati':'Annullamento non riuscito')}
+    return;
+  }
+  S=JSON.parse(u.prev);S.rev=Date.now();try{localStorage.setItem('m4gt4-mileage',JSON.stringify(S))}catch(_){}render();schedule();
+}
+function schedule(){if(!art||ro)return;pending=true;clearTimeout(ptimer);ptimer=setTimeout(publish,2500);setSave('Modifiche da salvare…')}
+async function publish(){
+  if($('#ov').innerHTML){ptimer=setTimeout(publish,1500);return}
+  setSave('Salvataggio…');
+  try{await art.publish(buildDoc());pending=false;setSave('Salvato')}
+  catch(e){const m=String(e&&e.message||e);if(/not_granted|not_writer/.test(m)){ro=true;setSave('Sola lettura')}else if(!/conflict/.test(m))setSave('Errore di salvataggio, riprovo…'),ptimer=setTimeout(publish,8000)}
+}
+function buildDoc(){
+  const css=document.getElementById('css').textContent,js=document.getElementById('app-js').textContent;
+  const st=JSON.stringify(S).replace(/</g,'\\u003c');
+  const E='</'+'script>',SE='</'+'style>';
+  return '<!DOCTYPE html>\n<html lang="it">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width,initial-scale=1">\n<title>M4 GT4 Mileage</title>\n<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">\n<style id="css">'+css+SE+'\n<script id="state" type="application/json">'+st+E+'\n</head>\n<body>\n<div id="app"></div>\n<div id="ov"></div>\n<script id="app-js">'+js+E+'\n</body>\n</html>\n';
+}
+function setSave(m){saveMsg=m;document.querySelectorAll('.save').forEach(el=>el.textContent=m)}
+
 
 /* ---------- calcolo stato componente ---------- */
 function stat(c,x){
@@ -396,62 +558,57 @@ function meterTxt(x,s){
   return ['—',0,0];
 }
 
-/* ---------- salvataggio ---------- */
-let art=null,ro=false,ptimer=null,saveMsg='Solo su questo dispositivo';
-const undo=[];
-function mutate(fn,msg){
-  undo.push(JSON.stringify(S));if(undo.length>25)undo.shift();
-  fn();S.rev=Date.now();
-  try{localStorage.setItem('m4gt4-mileage',JSON.stringify(S))}catch(e){}
-  render();if(msg)toast(msg,true);schedule();
-}
-function schedule(){if(!art||ro)return;pending=true;clearTimeout(ptimer);ptimer=setTimeout(publish,2500);setSave('Modifiche da salvare…')}
-async function publish(){
-  if($('#ov').innerHTML){ptimer=setTimeout(publish,1500);return}
-  setSave('Salvataggio…');
-  try{await art.publish(buildDoc());pending=false;setSave('Salvato')}
-  catch(e){const m=String(e&&e.message||e);if(/not_granted|not_writer/.test(m)){ro=true;setSave('Sola lettura')}else if(!/conflict/.test(m))setSave('Errore di salvataggio, riprovo…'),ptimer=setTimeout(publish,8000)}
-}
-function buildDoc(){
-  const head=document.head.cloneNode(false);
-  const css=document.getElementById('css').textContent,js=document.getElementById('app-js').textContent;
-  const st=JSON.stringify(S).replace(/</g,'\\u003c');
-  const E='</'+'script>',SE='</'+'style>';
-  return '<!DOCTYPE html>\n<html lang="it">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width,initial-scale=1">\n<title>M4 GT4 Mileage</title>\n<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">\n<style id="css">'+css+SE+'\n<script id="state" type="application/json">'+st+E+'\n</head>\n<body>\n<div id="app"></div>\n<div id="ov"></div>\n<script id="app-js">'+js+E+'\n</body>\n</html>\n';
-}
-function setSave(m){saveMsg=m;const el=$('#save');if(el)el.textContent=m}
-
 /* ---------- UI ---------- */
-let mini=false;
-let tab=(location.hash||'').slice(1)||'comp',filt='all',q='';
-if(!['comp','ev','log'].includes(tab))tab='comp';
+let mini=false,view='home',carTab='comp',filt='all',q='';
+let tuse='Gara',ttype='all',tev='all',tdone=false,tlf='all';
+const routeView=()=>{const h=(location.hash||'').slice(1);return h==='car'||h==='tyres'?h:'home'};
+function go(v){if(v==='home'){try{history.pushState(null,'',location.pathname+location.search)}catch(_){location.hash=''}view='home';render()}else location.hash=v;scrollTo(0,0)}
+const LOGOS=`<div class="logos"><button class="hb" data-go="home" aria-label="Torna al menu"><img class="fs" src="${LOGO_FS}" alt="FS Motorsport"></button><img class="bm" src="${LOGO_BMW}" alt="BMW Motorsport"></div>`;
+function gate(inner){return `<div class="gate"><div class="gcard">${LOGOS}${inner}</div></div>`}
 function render(){
-  const c=car(),tot=total(c);
-  const rows=c.comps.filter(x=>x.on).map(x=>({x,s:stat(c,x)}));
-  const n3=rows.filter(r=>r.s.lv===3).length,n2=rows.filter(r=>r.s.lv===2).length,n1=rows.filter(r=>r.s.lv===1).length,n0=rows.filter(r=>r.s.lv===0).length;
+  updOffline();
+  if(view==='loading'){$('#app').innerHTML=gate('<h1>Mileage</h1><p class="glead">Collegamento al server in corso…</p>');return}
+  if(view==='error'){$('#app').innerHTML=gate(`<h1>Mileage</h1><p class="gerr">${esc(fatal)}</p><button class="btn pri" data-x="reload">Riprova</button>`);return}
+  if(view==='login')return renderLogin();
+  if(view==='tyres')return renderTyres();
+  if(view==='car')return renderCar();
+  return renderHome();
+}
+function updOffline(){
+  let el=$('#offline');const show=!!cloud&&(!online||!cloud.ok)&&view!=='login';
+  if(show&&!el){el=document.createElement('div');el.id='offline';el.className='offline';el.innerHTML='<div><h2>Connessione assente</h2><p>L\'app funziona solo online. Appena torna la rete i dati si aggiornano da soli.</p></div>';document.body.appendChild(el)}
+  if(!show&&el)el.remove();
+}
+function carStats(c){const rows=c.comps.filter(x=>x.on).map(x=>({x,s:stat(c,x)}));return {rows,n3:rows.filter(r=>r.s.lv===3).length,n2:rows.filter(r=>r.s.lv===2).length,n1:rows.filter(r=>r.s.lv===1).length,n0:rows.filter(r=>r.s.lv===0).length}}
+function renderHome(){
+  const c=car(),cs=carStats(c);
+  const act=S.tyres.filter(t=>!t.done).map(t=>tlev(tkm(t)));
+  const r=act.filter(l=>l===3).length,o=act.filter(l=>l===2).length,y=act.filter(l=>l===1).length;
+  $('#app').innerHTML=`<div class="home"><div class="wrap">${LOGOS}
+  <h1 class="hh">BMW M4 GT4 EVO</h1><p class="hsub">Scegli dove entrare</p>
+  <div class="tiles">
+   <button class="tile" data-go="car"><span class="tk">Car Mileage</span><b>${nf(total(c))} km</b><span class="ti">${esc(c.name)}${S.cars.length>1?` e altri ${S.cars.length-1} telai`:''}</span><span class="ti">${cs.n3?`<em class="r">${cs.n3} da sostituire</em>`:''}${cs.n2?`<em class="a">${cs.n2} controlli dovuti</em>`:''}${!cs.n3&&!cs.n2?'<em class="g">Tutto in regola</em>':''}</span><span class="goin">Entra ›</span>
+    <svg viewBox="0 0 200 200" aria-hidden="true"><path d="M30 140 A75 75 0 1 1 170 140" fill="none" stroke="#2a2f36" stroke-width="16" stroke-linecap="round"/><path d="M30 140 A75 75 0 0 1 150 52" fill="none" stroke="#2f7bff" stroke-width="16" stroke-linecap="round"/><line x1="100" y1="110" x2="146" y2="62" stroke="#f3f4f6" stroke-width="6" stroke-linecap="round"/><circle cx="100" cy="110" r="10" fill="#f3f4f6"/></svg></button>
+   <button class="tile" data-go="tyres"><span class="tk">Tyres Mileage</span><b>${act.length} treni</b><span class="ti">in magazzino · ${S.tyres.filter(t=>t.use==='Gara'&&!t.done).length} gara · ${S.tyres.filter(t=>t.use==='Test'&&!t.done).length} test</span><span class="ti">${r?`<em class="r">${r} oltre ${S.tlim[2]} km</em>`:''}${o?`<em class="o">${o} oltre ${S.tlim[1]}</em>`:''}${y?`<em class="y">${y} oltre ${S.tlim[0]}</em>`:''}${!r&&!o&&!y?'<em class="g">Nessun allarme</em>':''}</span><span class="goin">Entra ›</span>
+    <svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="80" fill="#0d0f12" stroke="#2a2f36" stroke-width="4"/><circle cx="100" cy="100" r="68" fill="none" stroke="#3a4048" stroke-width="14" stroke-dasharray="10 7"/><circle cx="100" cy="100" r="44" fill="#1d2127" stroke="#8a929c" stroke-width="3"/><g stroke="#8a929c" stroke-width="5" stroke-linecap="round">${[0,72,144,216,288].map(a=>`<line x1="100" y1="100" x2="${(100+38*Math.cos(a*Math.PI/180)).toFixed(1)}" y2="${(100+38*Math.sin(a*Math.PI/180)).toFixed(1)}"/>`).join('')}</g><circle cx="100" cy="100" r="9" fill="#f3f4f6"/></svg></button>
+  </div>
+  <p class="hfoot"><span class="save">${esc(saveMsg)}</span>${cloud&&cloud.user?` · Connesso come ${esc(cloud.user.email)} · <button class="lnk" data-x="logout">Esci</button>`:''}</p>
+  </div></div>`;
+}
+function hdr(title,sub,right,acts,sel){
+  return `<header class="hd${mini?' mini':''}" id="hd"><div class="wrap">${LOGOS}
+ <div class="hdrow"><div class="car">${sel?`<div class="carsel"><label class="sr" for="carsel">Telaio</label><select id="carsel">${S.cars.map(k=>`<option value="${k.id}"${k.id===car().id?' selected':''}>${esc(k.name)}</option>`).join('')}<option value="+">+ Nuovo telaio…</option></select></div>`:''}<h1>${title}</h1><div class="sub">${sub}</div></div>${right}</div>
+ <div class="acts"><button class="btn" data-go="home">‹ Menu</button>${acts}<span class="save" id="save">${esc(saveMsg)}</span></div>
+</div></header>`;
+}
+function renderCar(){
+  const c=car(),tot=total(c),{rows,n3,n2,n1,n0}=carStats(c);
   const top=rows.slice().sort((a,b)=>b.s.score-a.s.score).slice(0,8);
   const evs=c.events.slice().sort((a,b)=>b.d.localeCompare(a.d)||b.s-a.s);
   const le=evs[0];
   $('#app').innerHTML=`
 ${c.demo?`<div class="demo"><div class="wrap"><span>Stai guardando un telaio di esempio con dati inventati.</span><button class="btn sm" data-a="newcar">Crea il tuo telaio</button></div></div>`:''}
-<header class="hd${mini?' mini':''}" id="hd"><div class="wrap">
- <div class="logos"><img class="fs" src="${LOGO_FS}" alt="FS Motorsport"><img class="bm" src="${LOGO_BMW}" alt="BMW Motorsport"></div>
- <div class="hdrow">
-  <div class="car">
-   <div class="carsel"><label class="sr" for="carsel">Telaio</label><select id="carsel">${S.cars.map(k=>`<option value="${k.id}"${k.id===c.id?' selected':''}>${esc(k.name)}</option>`).join('')}<option value="+">+ Nuovo telaio…</option></select></div>
-   <h1>BMW M4 GT4 EVO</h1>
-   <div class="sub">Telaio ${esc(c.chassis||'—')} · ${c.events.length} eventi registrati</div>
-  </div>
-  <div class="odo"><b>${nf(tot)} km</b><span>${le?`Ultimo evento: ${esc(le.title)}, ${fd(le.d)}`:'Nessun evento ancora'}</span></div>
- </div>
- <div class="acts">
-  <button class="btn pri" data-a="event">+ Evento km</button>
-  <button class="btn" data-a="rep">Sostituisci componenti</button>
-  <button class="btn" data-a="svc">Registra controllo</button>
-  <button class="btn" data-a="settings">Impostazioni</button>
-  <span class="save" id="save">${esc(saveMsg)}</span>
- </div>
-</div></header>
+${hdr('BMW M4 GT4 EVO',`Car Mileage · telaio ${esc(c.chassis||'—')} · ${c.events.length} eventi`,`<div class="odo"><b>${nf(tot)} km</b><span>${le?`Ultimo evento: ${esc(le.title)}, ${fd(le.d)}`:'Nessun evento ancora'}</span></div>`,`<button class="btn pri" data-a="event">+ Evento km</button><button class="btn" data-a="rep">Sostituisci componenti</button><button class="btn" data-a="svc">Registra controllo</button><button class="btn" data-go="tyres">Gomme</button><button class="btn" data-a="settings">Impostazioni</button>`,true)}
 <main class="wrap">
  <section class="top">
   <div>
@@ -469,12 +626,51 @@ ${c.demo?`<div class="demo"><div class="wrap"><span>Stai guardando un telaio di 
   </aside>
  </section>
  <div class="tabs" role="tablist">
-  ${[['comp','Componenti ('+c.comps.filter(x=>x.on).length+')'],['ev','Eventi ('+c.events.length+')'],['log','Storico interventi ('+c.log.length+')']].map(([k,l])=>`<button class="tab" role="tab" aria-selected="${tab===k}" data-tab="${k}">${l}</button>`).join('')}
+  ${[['comp','Componenti ('+c.comps.filter(x=>x.on).length+')'],['ev','Eventi ('+c.events.length+')'],['log','Storico interventi ('+c.log.length+')']].map(([k,l])=>`<button class="tab" role="tab" aria-selected="${carTab===k}" data-tab="${k}">${l}</button>`).join('')}
  </div>
- <section id="pane">${tab==='comp'?paneComp(c,rows):tab==='ev'?paneEv(c,evs):paneLog(c)}</section>
+ <section id="pane">${carTab==='comp'?paneComp(c,rows):carTab==='ev'?paneEv(c,evs):paneLog(c)}</section>
  <p class="note">Limiti da “Technical Customer Manual V2.3”, Appendice D (Running Times) e capitoli 1.6, 3.5, 4.1–4.4, 7. Il manuale avverte che i valori vengono aggiornati con il programma di test: verifica sempre l'ultima revisione. “S1” riproduce la colonna S1 dell'Appendice D.</p>
 </main>`;
 }
+const stTxt=e=>(e.stints||[]).map(s=>{const t=tyreById(s.set);return `<span class="nw">#${t?t.num:'?'} ${nf(s.km)}</span>`}).join(' · ');
+function paneEv(c,evs){
+  let run=total(c);
+  return `<div class="tools"><button class="btn pri" data-a="event">+ Evento km</button></div>${evs.length?`<div style="overflow-x:auto"><table><thead><tr><th>Data</th><th>Evento</th><th class="hide-s">Gomme (km)</th><th class="n">Km</th><th class="n">Totale telaio</th><th></th></tr></thead><tbody>${evs.map(e=>{const r=run;run-=e.km;return `<tr><td class="nw">${fd(e.d)}</td><td>${esc(e.title)} <span class="tag">${esc(e.type)}</span>${e.note||e.by?`<div class="pn">${esc(e.note||'')}${e.note&&e.by?' · ':''}${e.by?'inserito da '+esc(who(e.by)):''}</div>`:''}</td><td class="hide-s pn">${stTxt(e)||'—'}</td><td class="n">${nf(e.km)}</td><td class="n">${nf(r)}</td><td class="n"><button class="btn sm" data-ev="${e.id}">Modifica</button></td></tr>`}).join('')}<tr><td colspan="4" class="pn">Km iniziali telaio</td><td class="n">${nf(c.initKm)}</td><td></td></tr></tbody></table></div>`:'<p class="empty">Nessun evento. Ogni evento aggiunge km al telaio e a tutti i componenti montati.</p>'}`;
+}
+function renderTyres(){
+  const all=S.tyres.map(t=>({t,k:tkm(t)}));
+  const pool=all.filter(({t})=>t.use===tuse&&(ttype==='all'||t.type===ttype)&&(tev==='all'||t.ev===tev));
+  const act=pool.filter(({t})=>!t.done);
+  const cnt=[0,0,0,0];act.forEach(({k})=>cnt[tlev(k)]++);
+  const list=pool.filter(({t,k})=>(tdone||!t.done)&&(tlf==='all'||(!t.done&&tlev(k)===+tlf))).sort((a,b)=>b.t.num-a.t.num);
+  const evNames=[...new Set(S.tyres.filter(t=>t.use===tuse).map(t=>t.ev).filter(Boolean))].sort();
+  const L=S.tlim,max=L[2]*1.25;
+  const nAct=u=>S.tyres.filter(t=>t.use===u&&!t.done).length;
+  $('#app').innerHTML=`${hdr('Tyres Mileage',`Magazzino gomme · ${S.tyres.filter(t=>!t.done).length} treni disponibili`,`<div class="odo"><b>${act.length}</b><span>treni ${tuse.toLowerCase()} ${ttype==='all'?'':ttype.toLowerCase()} in magazzino</span></div>`,`<button class="btn pri" data-a="event">+ Evento km</button><button class="btn" data-a="tnew">+ Treno gomme</button><button class="btn" data-go="car">Vettura</button><button class="btn" data-a="settings">Impostazioni</button>`,false)}
+<main class="wrap">
+ <div class="ty-tools">
+  <div class="seg2" role="group" aria-label="Uso">${['Gara','Test'].map(u=>`<button aria-pressed="${tuse===u}" data-tu="${u}">Gomme ${u} <small>${nAct(u)}</small></button>`).join('')}</div>
+  <div class="chips">${[['all','Tutte'],['Slick','Asciutto · Slick'],['Rain','Bagnato · Rain']].map(([k,l])=>`<button class="chip" aria-pressed="${ttype===k}" data-tt="${k}">${l}</button>`).join('')}</div>
+  <label class="sr" for="tev">Evento</label><select id="tev" class="sel"><option value="all">Tutti gli eventi</option>${evNames.map(n=>`<option${n===tev?' selected':''}>${esc(n)}</option>`).join('')}</select>
+  <label class="chk"><input type="checkbox" id="tdone"${tdone?' checked':''}> Mostra scartati</label>
+ </div>
+ <div class="tally4">
+  <button class="t4 l0" data-tl="0" aria-pressed="${tlf==='0'}"><b>${cnt[0]}</b><span>Fino a ${L[0]} km</span></button>
+  <button class="t4 l1" data-tl="1" aria-pressed="${tlf==='1'}"><b>${cnt[1]}</b><span>Oltre ${L[0]} km</span></button>
+  <button class="t4 l2" data-tl="2" aria-pressed="${tlf==='2'}"><b>${cnt[2]}</b><span>Oltre ${L[1]} km</span></button>
+  <button class="t4 l3" data-tl="3" aria-pressed="${tlf==='3'}"><b>${cnt[3]}</b><span>Oltre ${L[2]} km</span></button>
+ </div>
+ ${list.length?`<div class="tgrid">${list.map(({t,k})=>{const l=tlev(k),u=tuses(t),lu=u[u.length-1];return `<button class="tc l${l}${t.done?' done':''}" data-tyre="${t.id}">
+  <div class="ttop"><span class="tn">#${t.num}</span><span class="tags"><span class="tag ${t.type==='Rain'?'rain':'slick'}">${t.type==='Rain'?'Rain':'Slick'}</span>${t.done?'<span class="tag">Scartato</span>':''}</span></div>
+  <div class="tk2"><b>${nf(k)}</b> km</div>
+  <div class="tbar"><i style="width:${Math.min(100,k/max*100).toFixed(1)}%"></i>${L.map(x=>`<u style="left:${(x/max*100).toFixed(1)}%"></u>`).join('')}</div>
+  <div class="tl">${t.done?'Fuori uso':tlab(l)}</div>
+  <div class="tm">${t.ev?esc(t.ev)+' · ':''}${u.length?`${u.length} ${u.length===1?'uscita':'uscite'} · ultima ${esc(lu.e.title)} ${fd(lu.e.d)}`:'Mai usato'}</div>
+ </button>`}).join('')}</div>`:`<p class="empty">${S.tyres.length?'Nessun treno corrisponde ai filtri.':'Il magazzino è vuoto: aggiungi i treni con “+ Treno gomme”.'}</p>`}
+ <p class="note">I km di ogni treno sono la somma dei km inseriti negli eventi. Gli stessi km si sommano al telaio e ai componenti della vettura scelta nell'evento.</p>
+</main>`;
+}
+
 function paneComp(c,rows){
   const all=c.comps.map(x=>({x,s:stat(c,x)}));
   const ql=q.toLowerCase();
@@ -496,44 +692,129 @@ function rowHtml(x,s){
   const tB=s.due?`<div class="k"><span>${x.st==='E'?'Omologazione':'Scadenza'}</span><b>${fd(s.due)} · ${s.dl<0?'scaduto':s.dl+' gg'}</b></div>`:(x.st==='E'?`<div class="k"><span>Omologazione</span><b>da impostare</b></div>`:'');
   return `<div class="row${x.on?'':' off'}" tabindex="0" data-open="${x.id}"><div><div class="nm2">${esc(x.name)}${x.s1?'<span class="s1" title="Contrassegnato nella colonna S1 dell\'Appendice D">S1</span>':''}</div><div class="pn">${esc(x.pn)}${x.vl?' · '+esc(x.vl):''}${x.sn?' · S/N '+esc(x.sn):''} · dal ${fd(x.inst.d)}</div></div><div class="lf">${lifeB}${svcB}${tB}</div><div class="st c${cls(s.lv)}">${x.on?s.lab:'Non montato'}</div></div>`;
 }
-function paneEv(c,evs){
-  let run=total(c);
-  return `<div class="tools"><button class="btn pri" data-a="event">+ Evento km</button></div>${evs.length?`<div style="overflow-x:auto"><table><thead><tr><th>Data</th><th>Evento</th><th class="hide-s">Tipo</th><th class="n">Km</th><th class="n">Totale telaio</th><th></th></tr></thead><tbody>${evs.map(e=>{const r=run;run-=e.km;return `<tr><td class="nw">${fd(e.d)}</td><td>${esc(e.title)}${e.note?`<div class="pn">${esc(e.note)}</div>`:''}</td><td class="hide-s"><span class="tag">${esc(e.type)}</span></td><td class="n">${nf(e.km)}</td><td class="n">${nf(r)}</td><td class="n"><button class="btn sm" data-ev="${e.id}">Modifica</button></td></tr>`}).join('')}<tr><td colspan="4" class="pn">Km iniziali telaio</td><td class="n">${nf(c.initKm)}</td><td></td></tr></tbody></table></div>`:'<p class="empty">Nessun evento. Ogni evento aggiunge km al telaio e a tutti i componenti montati.</p>'}`;
-}
 function paneLog(c){
   const L=c.log.slice().sort((a,b)=>b.d.localeCompare(a.d)||b.s-a.s);
   return L.length?`<div style="overflow-x:auto;margin-top:16px"><table><thead><tr><th>Data</th><th>Intervento</th><th>Componente</th><th class="n">Km del pezzo</th><th></th></tr></thead><tbody>${L.map(l=>{const last=!c.log.some(o=>o.cid===l.cid&&aft(o,l));return `<tr><td class="nw">${fd(l.d)}</td><td><span class="tag">${l.t==='rep'?'Sostituzione':'Controllo'}</span></td><td>${esc(l.name)}<div class="pn">${esc(l.pn)}${l.sn?' · nuovo S/N '+esc(l.sn):''}${l.note?' · '+esc(l.note):''}</div></td><td class="n">${nf(l.km)}</td><td class="n">${last?`<button class="btn sm" data-undo="${l.id}">Annulla</button>`:''}</td></tr>`}).join('')}</tbody></table></div>`:'<p class="empty">Le sostituzioni e i controlli registrati appariranno qui.</p>';
 }
 
 /* ---------- dialoghi ---------- */
-function dlg(html){$('#ov').innerHTML=`<div class="ov"><div class="dlg" role="dialog" aria-modal="true">${html}</div></div>`;const f=$('#ov input,#ov select,#ov textarea');if(f)f.focus()}
+function dlg(html){$('#ov').innerHTML=`<div class="ov"><div class="dlg" role="dialog" aria-modal="true">${html}</div></div>`;const f=$('#ov input:not([type=checkbox]),#ov select,#ov textarea');if(f)f.focus()}
 function close(){$('#ov').innerHTML='';if(pending&&art&&!ro)schedule()}
 const v=id=>{const e=document.getElementById(id);return e?e.value.trim():''};
 const opt=(arr,sel)=>arr.map(o=>`<option${o===sel?' selected':''}>${o}</option>`).join('');
 
-let evMode='km';
-function dEvent(id){
-  const c=car(),e=id?c.events.find(x=>x.id===id):null,tot=total(c);
-  dlg(`<h2>${e?'Modifica evento':'Nuovo evento'}</h2><p class="lead">I km vengono aggiunti al telaio e a ogni componente montato prima della data dell'evento.</p>
+/* evento con gomme */
+let evMode='km',evSt=[],evCar=null,evId=null;
+function setOpts(sel){
+  let h='';
+  for(const u of ['Gara','Test'])for(const ty of ['Slick','Rain']){
+    const L=S.tyres.filter(t=>t.use===u&&t.type===ty&&(!t.done||t.id===sel)).sort((a,b)=>b.num-a.num);
+    if(L.length)h+=`<optgroup label="${u} · ${ty}">${L.map(t=>`<option value="${t.id}"${t.id===sel?' selected':''}>#${t.num}${t.ev?' · '+esc(t.ev):''} — ${nf(tkm(t))} km</option>`).join('')}</optgroup>`;
+  }
+  return h;
+}
+function stDraw(){
+  $('#stl').innerHTML=evSt.length?evSt.map((s,i)=>`<div class="strow"><label class="sr" for="sts${i}">Treno</label><select id="sts${i}" data-si="${i}" class="sts"><option value="">Scegli il treno…</option>${setOpts(s.set)}</select><label class="sr" for="stk${i}">Km</label><input id="stk${i}" type="number" inputmode="numeric" min="0" class="stk" data-si="${i}" value="${s.km||''}" placeholder="km"><button class="btn sm" data-strm="${i}" aria-label="Rimuovi treno">✕</button></div>`).join(''):`<p class="pn" style="margin:0 0 8px">${S.tyres.length?'Nessun treno: puoi inserire solo i km totali qui sotto.':'Il magazzino gomme è vuoto: aggiungi i treni da Tyres Mileage.'}</p>`;
+  stSum();
+}
+function stSum(){
+  const used=evSt.filter(s=>s.set);const sum=used.reduce((a,s)=>a+(+s.km||0),0);
+  const ek=$('#ek'),tot=total(S.cars.find(c=>c.id===(v('ecar')||evCar))||car());
+  if(used.length){ek.value=sum;ek.disabled=true;$('#ekl').textContent='Km evento = somma km gomme';$('#ekh').textContent=`Totale telaio dopo: ${nf(tot+sum-(evId?(car().events.find(x=>x.id===evId)||{km:0}).km:0))} km`;const sg=$('#seg');if(sg)sg.style.display='none'}
+  else{ek.disabled=false;const sg=$('#seg');if(sg)sg.style.display='';$('#ekl').textContent=evMode==='km'?"Km percorsi nell'evento":'Lettura contachilometri a fine evento';const n=+ek.value||0;$('#ekh').textContent=evMode==='km'?`Totale telaio dopo: ${nf(tot+n)} km`:`Km dell'evento: ${nf(Math.max(0,n-tot))} km`}
+}
+function dEvent(id,carId){
+  const c=carId?S.cars.find(x=>x.id===carId):car(),e=id?c.events.find(x=>x.id===id):null;
+  evMode='km';evCar=c.id;evId=id||null;evSt=e?(e.stints||[]).map(s=>({...s})):(S.tyres.length?[{set:'',km:''}]:[]);
+  dlg(`<h2>${e?'Modifica evento':'Nuovo evento'}</h2><p class="lead">Inserisci i km di ogni treno di gomme usato: il totale si somma al telaio e ai componenti della vettura.</p>
+  ${S.cars.length>1?`<div class="fld"><label for="ecar">Vettura</label><select id="ecar">${S.cars.map(k=>`<option value="${k.id}"${k.id===c.id?' selected':''}>${esc(k.name)}${k.chassis?' · '+esc(k.chassis):''}</option>`).join('')}</select></div>`:''}
   <div class="f2"><div class="fld"><label for="ed">Data</label><input id="ed" type="date" value="${e?e.d:TODAY}"></div><div class="fld"><label for="et">Tipo</label><select id="et">${opt(['Gara','Qualifica','Prove libere','Test','Shakedown','Trasferimento','Altro'],e?e.type:'Gara')}</select></div></div>
   <div class="fld"><label for="en">Nome evento</label><input id="en" placeholder="es. Monza – Gara 1" value="${esc(e?e.title:'')}"></div>
-  ${e?'':`<div class="seg" role="group"><button aria-pressed="true" data-m="km">Km percorsi</button><button aria-pressed="false" data-m="odo">Contachilometri finale</button></div>`}
-  <div class="fld"><label for="ek" id="ekl">Km percorsi nell'evento</label><input id="ek" type="number" inputmode="numeric" min="0" step="1" value="${e?e.km:''}"><span class="hint" id="ekh">Totale telaio attuale: ${nf(tot)} km</span></div>
+  <div class="fld"><label>Gomme utilizzate</label><div id="stl"></div><div><button class="btn sm" data-x="stadd">+ Aggiungi treno</button></div></div>
+  ${e?'':`<div class="seg" role="group" id="seg"><button aria-pressed="true" data-m="km">Km percorsi</button><button aria-pressed="false" data-m="odo">Contachilometri finale</button></div>`}
+  <div class="fld"><label for="ek" id="ekl">Km percorsi nell'evento</label><input id="ek" type="number" inputmode="numeric" min="0" step="1" value="${e?e.km:''}"><span class="hint" id="ekh"></span></div>
   <div class="fld"><label for="eo">Note</label><input id="eo" value="${esc(e?e.note:'')}"></div>
-  <div class="foot">${e?'<button class="btn dng l" data-x="evdel">Elimina</button>':''}<button class="btn" data-x="close">Annulla</button><button class="btn pri" data-x="evsave" data-id="${e?e.id:''}">Salva</button></div>`);
-  const upd=()=>{const n=+v('ek')||0;$('#ekh').textContent=evMode==='km'?`Totale telaio dopo: ${nf(tot+n)} km`:`Km dell'evento: ${nf(Math.max(0,n-tot))} km`};
-  $('#ek').oninput=upd;
-  document.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{evMode=b.dataset.m;document.querySelectorAll('[data-m]').forEach(x=>x.setAttribute('aria-pressed',x===b));$('#ekl').textContent=evMode==='km'?"Km percorsi nell'evento":'Lettura contachilometri a fine evento';upd()});
-  evMode='km';
+  <div class="foot">${e?'<button class="btn dng l" data-x="evdel">Elimina</button>':''}<button class="btn" data-x="close">Annulla</button><button class="btn pri" data-x="evsave">Salva</button></div>`);
+  stDraw();
+  $('#ek').oninput=stSum;
+  const ec=$('#ecar');if(ec)ec.onchange=stSum;
+  document.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{evMode=b.dataset.m;document.querySelectorAll('[data-m]').forEach(x=>x.setAttribute('aria-pressed',x===b));stSum()});
 }
-function saveEvent(id){
-  const c=car(),mode=evMode;
-  let km=+v('ek');const d=v('ed')||TODAY,title=v('en')||'Evento';
-  if(!id&&mode==='odo')km=km-total(c);
-  if(!(km>=0)||v('ek')===''){$('#ekh').textContent='Inserisci un numero di km valido.';$('#ekh').style.color='var(--red)';return}
+function saveEvent(){
+  const from=S.cars.find(x=>x.id===evCar)||car(),toId=v('ecar')||evCar,to=S.cars.find(x=>x.id===toId)||from;
+  const st=evSt.filter(s=>s.set);
+  if(st.some(s=>!(+s.km>0))){$('#ekh').textContent='Inserisci i km di ogni treno scelto.';$('#ekh').style.color='var(--red)';return}
+  const stints=st.map(s=>({set:s.set,km:Math.round(+s.km)}));
+  let km=stints.length?stints.reduce((a,s)=>a+s.km,0):+v('ek');
+  if(!stints.length&&!evId&&evMode==='odo')km=km-total(to);
+  if(!stints.length&&(!(km>=0)||v('ek')==='')){$('#ekh').textContent='Inserisci un numero di km valido.';$('#ekh').style.color='var(--red)';return}
+  const d=v('ed')||TODAY,title=v('en')||'Evento',type=v('et')||'Altro',note=v('eo'),id=evId,fid=from.id,tid=to.id;
   close();
-  mutate(()=>{if(id){Object.assign(c.events.find(x=>x.id===id),{d,title,type:v('et')||'Altro',km:Math.round(km),note:v('eo')})}else c.events.push({id:uid(),d,s:S.seq++,title,type:v('et'),km:Math.round(km),note:v('eo')});},id?'Evento aggiornato':`Aggiunti ${nf(km)} km`);
+  mutate(()=>{
+    const f=S.cars.find(x=>x.id===fid),t=S.cars.find(x=>x.id===tid);
+    if(id){let e=f.events.find(x=>x.id===id);if(!e)return;Object.assign(e,{d,title,type,km:Math.round(km),stints,note});if(f!==t){f.events=f.events.filter(x=>x.id!==id);t.events.push(e)}}
+    else t.events.push({id:uid(),d,s:nseq(),title,type,km:Math.round(km),stints,note});
+  },id?'Evento aggiornato':`Aggiunti ${nf(km)} km a ${to.name}`);
 }
+
+/* gomme */
+function dTyre(id){
+  const t=tyreById(id);if(!t)return;const k=tkm(t),l=tlev(k),u=tuses(t);
+  const se=t.serial||{};
+  dlg(`<h2>Treno #${t.num}</h2><p class="lead">${t.use} · ${t.type==='Rain'?'Bagnato (Rain)':'Asciutto (Slick)'}${t.ev?' · '+esc(t.ev):''}${t.done?' · fuori uso':''}</p>
+  <div class="kv"><div class="tkv l${l}"><b>${nf(k)} km</b><span>${tlab(l)}</span></div><div><b>${u.length}</b><span>uscite registrate</span></div>${t.startKm?`<div><b>${nf(t.startKm)}</b><span>km iniziali</span></div>`:''}</div>
+  ${se.as||se.ad||se.ps||se.pd?`<div class="pos4"><div><span>Ant. sx</span><b>${esc(se.as||'—')}</b></div><div><span>Ant. dx</span><b>${esc(se.ad||'—')}</b></div><div><span>Post. sx</span><b>${esc(se.ps||'—')}</b></div><div><span>Post. dx</span><b>${esc(se.pd||'—')}</b></div></div>`:''}
+  ${t.note?`<p class="pn">${esc(t.note)}</p>`:''}
+  <div class="foot" style="justify-content:flex-start"><button class="btn" data-x="tedit" data-id="${t.id}">Modifica</button><button class="btn" data-x="tdone" data-id="${t.id}">${t.done?'Rimetti in magazzino':'Segna come fuori uso'}</button>${u.length?'':`<button class="btn dng" data-x="tdel" data-id="${t.id}">Elimina</button>`}</div>
+  <h2 style="margin-top:18px;font-size:20px">Uscite</h2>${u.length?`<div style="overflow-x:auto"><table><thead><tr><th>Data</th><th>Evento</th><th class="hide-s">Vettura</th><th class="n">Km</th><th class="n">Progressivo</th></tr></thead><tbody>${(()=>{let r=+t.startKm||0;return u.map(x=>{r+=x.km;return `<tr><td class="nw">${fd(x.e.d)}</td><td>${esc(x.e.title)}</td><td class="hide-s">${esc(x.c.name)}</td><td class="n">${nf(x.km)}</td><td class="n">${nf(r)}</td></tr>`}).join('')})()}</tbody></table></div>`:'<p class="pn">Mai usato. I km si aggiungono inserendo il treno in un evento.</p>'}
+  <div class="foot"><button class="btn" data-x="close">Chiudi</button></div>`);
+}
+function dTyreEdit(id){
+  const t=id?tyreById(id):null,next=Math.max(0,...S.tyres.map(x=>x.num))+1,se=t&&t.serial||{};
+  const evs=[...new Set(S.tyres.map(x=>x.ev).filter(Boolean))].sort();
+  dlg(`<h2>${t?'Modifica treno #'+t.num:'Nuovo treno gomme'}</h2><p class="lead">${t?'Correggi i dati del treno.':'Puoi creare più treni con numeri consecutivi in una volta.'}</p>
+  <div class="f2"><div class="fld"><label for="yn">Numero</label><input id="yn" type="number" min="1" value="${t?t.num:next}"></div>${t?`<div class="fld"><label for="yk">Km iniziali</label><input id="yk" type="number" min="0" value="${t.startKm||0}"><span class="hint">Km fatti prima di inserirlo nell'app.</span></div>`:`<div class="fld"><label for="yq">Quantità</label><input id="yq" type="number" min="1" max="40" value="1"><span class="hint">Es. 4 crea #${next}–#${next+3}.</span></div>`}
+  <div class="fld"><label>Uso</label><div class="seg" role="group">${['Gara','Test'].map(u=>`<button aria-pressed="${(t?t.use:tuse)===u}" data-yu="${u}">${u}</button>`).join('')}</div></div>
+  <div class="fld"><label>Tipo</label><div class="seg" role="group">${[['Slick','Asciutto · Slick'],['Rain','Bagnato · Rain']].map(([k,l])=>`<button aria-pressed="${(t?t.type:(ttype==='Rain'?'Rain':'Slick'))===k}" data-yt="${k}">${l}</button>`).join('')}</div></div></div>
+  <div class="fld"><label for="ye">Evento / assegnazione</label><input id="ye" list="yel" placeholder="es. Monza 2027" value="${esc(t?t.ev:(tev!=='all'?tev:''))}"><datalist id="yel">${evs.map(n=>`<option value="${esc(n)}">`).join('')}</datalist></div>
+  ${t?`<div class="f2"><div class="fld"><label for="ya">N. gomma ant. sx</label><input id="ya" value="${esc(se.as||'')}"></div><div class="fld"><label for="yb">N. gomma ant. dx</label><input id="yb" value="${esc(se.ad||'')}"></div><div class="fld"><label for="yc">N. gomma post. sx</label><input id="yc" value="${esc(se.ps||'')}"></div><div class="fld"><label for="yd">N. gomma post. dx</label><input id="yd" value="${esc(se.pd||'')}"></div></div>`:''}
+  ${!t?`<div class="fld"><label for="yk">Km iniziali</label><input id="yk" type="number" min="0" value="0"><span class="hint">0 per gomme nuove.</span></div>`:''}
+  <div class="fld"><label for="yo">Note</label><input id="yo" value="${esc(t?t.note:'')}"></div>
+  <p class="hint" id="yerr" style="color:var(--red)"></p>
+  <div class="foot"><button class="btn" data-x="close">Annulla</button><button class="btn pri" data-x="tsave" data-id="${t?t.id:''}">Salva</button></div>`);
+  document.querySelectorAll('[data-yu],[data-yt]').forEach(b=>b.onclick=()=>{const k=b.dataset.yu?'yu':'yt';document.querySelectorAll('[data-'+k+']').forEach(x=>x.setAttribute('aria-pressed',x===b))});
+}
+function saveTyre(id){
+  const num=Math.round(+v('yn')),qty=id?1:Math.max(1,Math.min(40,Math.round(+v('yq')||1)));
+  const use=($('[data-yu][aria-pressed=true]')||{dataset:{yu:'Gara'}}).dataset.yu,type=($('[data-yt][aria-pressed=true]')||{dataset:{yt:'Slick'}}).dataset.yt;
+  if(!(num>0)){$('#yerr').textContent='Inserisci un numero valido.';return}
+  const nums=Array.from({length:qty},(_,i)=>num+i),clash=nums.find(n=>S.tyres.some(x=>x.num===n&&x.id!==id));
+  if(clash){$('#yerr').textContent=`Il numero #${clash} esiste già.`;return}
+  const ev=v('ye'),note=v('yo'),sk=Math.max(0,Math.round(+v('yk')||0)),serial=id?{as:v('ya'),ad:v('yb'),ps:v('yc'),pd:v('yd')}:{as:'',ad:'',ps:'',pd:''};
+  close();tuse=use;
+  mutate(()=>{
+    if(id){const t=tyreById(id);if(t)Object.assign(t,{num,use,type,ev,note,startKm:sk,serial})}
+    else nums.forEach(n=>S.tyres.push({id:'t'+uid(),num:n,use,type,ev,serial:{...serial},startKm:sk,done:false,note,created:TODAY}));
+  },id?'Treno aggiornato':qty>1?`Creati ${qty} treni (#${num}–#${num+qty-1})`:`Treno #${num} creato`);
+}
+
+/* login */
+function renderLogin(){
+  $('#app').innerHTML=gate(`<h1>Mileage</h1><p class="glead">Accedi con l'account del team FS Motorsport.</p>
+  <form id="lf" novalidate><div class="fld"><label for="le">Email</label><input id="le" type="email" autocomplete="username" required></div>
+  <div class="fld"><label for="lp">Password</label><input id="lp" type="password" autocomplete="current-password" required></div>
+  <p class="gerr" id="lerr" role="alert"></p><button class="btn pri" type="submit" style="width:100%">Accedi</button></form>
+  <p style="margin:14px 0 0;font-size:14px"><button class="lnk" data-x="reset">Password dimenticata?</button></p>`);
+  const f=$('#le');if(f)f.focus();
+}
+const AUTHMSG={'auth/invalid-credential':'Email o password errati.','auth/wrong-password':'Email o password errati.','auth/user-not-found':'Email o password errati.','auth/invalid-email':'Email non valida.','auth/too-many-requests':'Troppi tentativi: riprova tra qualche minuto.','auth/network-request-failed':'Connessione assente.','auth/user-disabled':'Account disattivato.'};
+async function doLogin(){
+  const em=v('le'),pw=($('#lp')||{}).value||'';const er=$('#lerr');
+  if(!em||!pw){er.textContent='Inserisci email e password.';return}
+  er.textContent='Accesso in corso…';
+  try{await cloud.auth.signInWithEmailAndPassword(em,pw)}catch(e){er.textContent=AUTHMSG[e.code]||('Accesso non riuscito: '+(e.message||e))}
+}
+
 const PRE={tag:{l:'Tagliando motore',f:x=>['Olio motore','Filtro olio motore','Candele','Filtro aria'].includes(x.name)},ds:{l:'Semiassi',f:x=>/^Semiasse/.test(x.name)},cer:{l:'Cerchi',f:x=>/^Cerchi/.test(x.name)},sv5:{l:'Tutti i controlli ≤ 5.000 km',f:x=>x.svc&&x.svc<=5000},sv15:{l:'Tutti i controlli 15.000 km',f:x=>x.svc===15000},due:{l:'Solo quelli dovuti',f:(x,s)=>s.lv>=1}};
 function dBatch(kind,ids){
   const c=car(),rep=kind==='rep';
@@ -558,7 +839,7 @@ function saveBatch(kind){
   if(!ids.length){$('#bc').textContent='Seleziona almeno un componente';$('#bc').style.color='var(--red)';return}
   const d=v('bd')||TODAY,note=v('bn'),bk=+v('bk')||0,sn=v('bs'),bx=v('bx'),es=v('be');
   close();
-  mutate(()=>{const ref={d,s:S.seq++};ids.forEach(id=>{const x=c.comps.find(k=>k.id===id),s=stat(c,x);
+  mutate(()=>{const ref={d,s:nseq()};ids.forEach(id=>{const x=c.comps.find(k=>k.id===id),s=stat(c,x);
     c.log.push({id:uid(),t:kind,d,s:ref.s,cid:id,name:x.name,pn:x.pn,km:kmAt(c,x,ref),note:kind==='svc'?[es,note].filter(Boolean).join(' – '):note,sn:ids.length===1?sn:'',prev:snap(x)});
     if(kind==='rep'){x.inst={...ref};x.startKm=bk;x.svcStart=0;x.svcAt=null;if(ids.length===1&&sn)x.sn=sn;if(bx&&(x.st==='E'||x.exp))x.exp=bx;else if(x.st==='E')x.exp=null}
     else x.svcAt={...ref};});
@@ -602,7 +883,7 @@ function saveComp(id){
   const km=+v('ck')||0,skm=+v('cc')||0,cv=$('#cv'),con=$('#con');
   close();
   mutate(()=>{let x=id?c.comps.find(k=>k.id===id):null;
-    if(!x){x={id:'u'+uid(),g:v('cg')||'cus',hg:'',en:'Aggiunto dall\'utente',st:'',s1:false,on:true,custom:true,inst:{d:TODAY,s:S.seq++},svcAt:null,startKm:0,svcStart:0};c.comps.push(x)}
+    if(!x){x={id:'u'+uid(),g:v('cg')||'cus',hg:'',en:'Aggiunto dall\'utente',st:'',s1:false,on:true,custom:true,inst:{d:TODAY,s:nseq()},svcAt:null,startKm:0,svcStart:0};c.comps.push(x)}
     if(cv&&x.vars){x.pick=+cv.value;const w=x.vars[x.pick];Object.assign(x,{en:w.en,st:w.st,s1:w.s1,vl:w.vl})}
     Object.assign(x,vals);if(con)x.on=con.checked;
     if(!x.st&&x.svc)x.st='V';if(!x.st&&x.mo)x.st='S';
@@ -610,43 +891,59 @@ function saveComp(id){
     if(x.svcAt&&aft(x.svcAt,x.inst))x.svcAt=null;x.svcStart=skm-after;
   },'Componente salvato');
 }
+
 function dCar(edit){
   const c=edit?car():null;
-  dlg(`<h2>${c?'Impostazioni telaio':'Nuovo telaio'}</h2><p class="lead">${c?'Dati del telaio, soglie di avviso e backup.':'Tutti i componenti del manuale vengono creati automaticamente.'}</p>
-  <div class="f2"><div class="fld"><label for="tn">Nome</label><input id="tn" value="${esc(c?c.name:'M4 GT4 EVO #'+(S.cars.filter(k=>!k.demo).length+1))}"></div><div class="fld"><label for="tc">Numero telaio</label><input id="tc" value="${esc(c?c.chassis:'')}"></div>
+  dlg(`<h2>${c?'Impostazioni':'Nuovo telaio'}</h2><p class="lead">${c?'Telaio, soglie di avviso, account e backup.':'Tutti i componenti del manuale vengono creati automaticamente.'}</p>
+  <div class="f2"><div class="fld"><label for="tn">Nome telaio</label><input id="tn" value="${esc(c?c.name:'M4 GT4 EVO #'+(S.cars.filter(k=>!k.demo).length+1))}"></div><div class="fld"><label for="tc">Numero telaio</label><input id="tc" value="${esc(c?c.chassis:'')}"></div>
   <div class="fld"><label for="tk">Km iniziali telaio</label><input id="tk" type="number" min="0" value="${c?c.initKm:0}"><span class="hint">Km già percorsi prima del primo evento registrato.</span></div>
-  ${c?`<div class="fld"><label for="tw">Avviso “in scadenza” da (%)</label><input id="tw" type="number" min="50" max="99" value="${S.warn}"></div><div class="fld"><label for="twd">Avviso scadenze a tempo (giorni)</label><input id="twd" type="number" min="1" value="${S.warnDays}"></div>`:`<div class="fld"><label for="ts">Km dei componenti</label><select id="ts"><option value="0">Tutti nuovi (0 km)</option><option value="1">Uguali ai km del telaio</option></select><span class="hint">Potrai correggere ogni pezzo singolarmente.</span></div>`}
+  ${c?`<div class="fld"><label for="tw">Avviso componenti “in scadenza” da (%)</label><input id="tw" type="number" min="50" max="99" value="${S.warn}"></div><div class="fld"><label for="twd">Avviso scadenze a tempo (giorni)</label><input id="twd" type="number" min="1" value="${S.warnDays}"></div>`:`<div class="fld"><label for="ts">Km dei componenti</label><select id="ts"><option value="0">Tutti nuovi (0 km)</option><option value="1">Uguali ai km del telaio</option></select><span class="hint">Potrai correggere ogni pezzo singolarmente.</span></div>`}
   </div>
-  ${c?`<h2 style="font-size:20px;margin-top:8px">Backup</h2><p class="pn">Copia i dati per conservarli o per spostarli; incolla un backup per ripristinarlo.</p><div class="fld"><label for="tj">Dati (JSON)</label><textarea id="tj" rows="3" placeholder="Incolla qui un backup per importarlo"></textarea></div><div class="foot" style="justify-content:flex-start;margin-top:0"><button class="btn sm" data-x="copy">Copia backup</button><button class="btn sm" data-x="import">Importa backup</button></div>`:''}
+  ${c?`<h2 style="font-size:20px;margin-top:8px">Allarmi gomme (km)</h2><div class="f3"><div class="fld"><label for="ty1">Giallo oltre</label><input id="ty1" type="number" min="1" value="${S.tlim[0]}"></div><div class="fld"><label for="ty2">Arancio oltre</label><input id="ty2" type="number" min="1" value="${S.tlim[1]}"></div><div class="fld"><label for="ty3">Rosso oltre</label><input id="ty3" type="number" min="1" value="${S.tlim[2]}"></div></div>
+  ${cloud&&cloud.user?`<h2 style="font-size:20px;margin-top:8px">Account</h2><p class="pn">Connesso come <b>${esc(cloud.user.email)}</b>. I dati sono condivisi in tempo reale con il team.</p><div class="foot" style="justify-content:flex-start;margin-top:0"><button class="btn sm" data-x="logout">Esci</button></div>`:''}
+  <h2 style="font-size:20px;margin-top:8px">Backup</h2><p class="pn">Copia i dati per conservarli; incolla un backup per ripristinarlo${cloud?' (sostituisce i dati di tutto il team)':''}.</p><div class="fld"><label for="tj">Dati (JSON)</label><textarea id="tj" rows="3" placeholder="Incolla qui un backup per importarlo"></textarea></div><div class="foot" style="justify-content:flex-start;margin-top:0"><button class="btn sm" data-x="copy">Copia backup</button><button class="btn sm" data-x="import">Importa backup</button></div>`:''}
+  <p class="hint" id="cerr" style="color:var(--red)"></p>
   <div class="foot">${c&&S.cars.length>1?'<button class="btn dng l" data-x="cardel">Elimina telaio</button>':''}<button class="btn" data-x="close">Annulla</button><button class="btn pri" data-x="carsave" data-edit="${edit?1:''}">${c?'Salva':'Crea telaio'}</button></div>`);
 }
 function saveCar(edit){
   const name=v('tn')||'M4 GT4',ch=v('tc'),k=+v('tk')||0;
-  if(edit){const c=car(),w=+v('tw'),wd=+v('twd');close();mutate(()=>{c.name=name;c.chassis=ch;c.initKm=k;if(w>=50&&w<100)S.warn=w;if(wd>0)S.warnDays=wd},'Impostazioni salvate')}
-  else{const same=v('ts')==='1';close();mutate(()=>{const n=newCar(name,ch,k,same,TODAY);S.cars=S.cars.filter(x=>!x.demo);S.cars.push(n);S.cur=n.id},'Telaio creato')}
+  if(edit){
+    const c=car(),w=+v('tw'),wd=+v('twd'),L=[+v('ty1'),+v('ty2'),+v('ty3')];
+    if(!(L[0]>0&&L[0]<L[1]&&L[1]<L[2])){$('#cerr').textContent='Le soglie gomme devono essere crescenti (giallo < arancio < rosso).';return}
+    close();mutate(()=>{c.name=name;c.chassis=ch;c.initKm=k;if(w>=50&&w<100)S.warn=w;if(wd>0)S.warnDays=wd;S.tlim=L},'Impostazioni salvate');
+  }else{const same=v('ts')==='1';close();mutate(()=>{const n=newCar(name,ch,k,same,TODAY);S.cars=S.cars.filter(x=>!x.demo);S.cars.push(n);S.cur=n.id},'Telaio creato')}
 }
 let tt=null;
 function toast(m,u){clearTimeout(tt);let el=$('#toast');if(!el){el=document.createElement('div');el.id='toast';el.className='toast';el.setAttribute('role','status');document.body.appendChild(el)}el.innerHTML=`<span>${esc(m)}</span>${u&&undo.length?'<button data-x="undo">Annulla</button>':''}`;tt=setTimeout(()=>el.remove(),6000)}
 
-/* ---------- eventi ---------- */
+/* ---------- eventi interfaccia ---------- */
 document.addEventListener('click',e=>{
   const b=e.target.closest('button,[data-open],[data-x]');if(!b)return;const d=b.dataset;
+  if(d.go){e.preventDefault();return go(d.go)}
   if(d.a==='event')return dEvent();
   if(d.a==='rep')return dBatch('rep');
   if(d.a==='svc')return dBatch('svc');
   if(d.a==='settings')return dCar(true);
   if(d.a==='newcar')return dCar(false);
   if(d.a==='addcomp')return dEdit();
-  if(d.tab){tab=d.tab;try{history.replaceState(null,'','#'+tab)}catch(_){}return render()}
-  if(d.f!==undefined&&!b.closest('#ov')){filt=b.classList.contains('t')?d.f:(filt===d.f?'all':d.f);tab='comp';render();if(b.classList.contains('t'))$('#pane').scrollIntoView({behavior:'smooth'});return}
+  if(d.a==='tnew')return dTyreEdit();
+  if(d.tab){carTab=d.tab;return render()}
+  if(d.tu){tuse=d.tu;tev='all';tlf='all';return render()}
+  if(d.tt){ttype=d.tt;return render()}
+  if(d.tl!==undefined){tlf=tlf===d.tl?'all':d.tl;return render()}
+  if(d.tyre)return dTyre(d.tyre);
+  if(d.f!==undefined&&!b.closest('#ov')){filt=b.classList.contains('t')?d.f:(filt===d.f?'all':d.f);carTab='comp';render();if(b.classList.contains('t'))$('#pane').scrollIntoView({behavior:'smooth'});return}
   if(d.open&&!b.closest('#ov'))return dComp(d.open);
   if(d.ev)return dEvent(d.ev);
+  if(d.strm!==undefined){evSt.splice(+d.strm,1);return stDraw()}
   if(d.undo){const c=car(),l=c.log.find(o=>o.id===d.undo);return mutate(()=>{const x=c.comps.find(k=>k.id===l.cid);if(x&&l.prev)Object.assign(x,l.prev);c.log=c.log.filter(o=>o.id!==l.id)},'Intervento annullato')}
   switch(d.x){
     case 'close':return close();
-    case 'zoom':{const d=b.closest('.dlg');if(d)d.classList.toggle('wide');return}
-    case 'evsave':return saveEvent(d.id);
-    case 'evdel':{const c=car(),id=$('[data-x=evsave]').dataset.id;close();return mutate(()=>{c.events=c.events.filter(x=>x.id!==id)},'Evento eliminato')}
+    case 'reload':return location.reload();
+    case 'zoom':{const z=b.closest('.dlg');if(z)z.classList.toggle('wide');return}
+    case 'stadd':evSt.push({set:'',km:''});stDraw();{const s=$('#sts'+(evSt.length-1));if(s)s.focus()}return;
+    case 'evsave':return saveEvent();
+    case 'evdel':{const cid=evCar,id=evId;close();return mutate(()=>{const c=S.cars.find(x=>x.id===cid);if(c)c.events=c.events.filter(x=>x.id!==id)},'Evento eliminato')}
     case 'repsave':return saveBatch('rep');
     case 'svcsave':return saveBatch('svc');
     case 'one-rep':return dBatch('rep',[d.id]);
@@ -656,22 +953,78 @@ document.addEventListener('click',e=>{
     case 'cdel':{const c=car();close();return mutate(()=>{c.comps=c.comps.filter(x=>x.id!==d.id)},'Componente eliminato')}
     case 'carsave':return saveCar(!!d.edit);
     case 'cardel':{const id=S.cur;close();return mutate(()=>{S.cars=S.cars.filter(x=>x.id!==id);S.cur=S.cars[0].id},'Telaio eliminato')}
+    case 'tedit':return dTyreEdit(d.id);
+    case 'tsave':return saveTyre(d.id);
+    case 'tdone':{const id=d.id;close();return mutate(()=>{const t=tyreById(id);if(t)t.done=!t.done},'Treno aggiornato')}
+    case 'tdel':{const id=d.id;close();return mutate(()=>{S.tyres=S.tyres.filter(t=>t.id!==id)},'Treno eliminato')}
     case 'copy':{const t=JSON.stringify(S);$('#tj').value=t;$('#tj').select();try{navigator.clipboard.writeText(t).then(()=>toast('Backup copiato negli appunti'),()=>toast('Seleziona il testo e copialo'))}catch(_){toast('Seleziona il testo e copialo')}return}
-    case 'import':{let o;try{o=JSON.parse(v('tj'))}catch(_){}if(!o||!Array.isArray(o.cars)||!o.cars.length){$('#tj').style.borderColor='var(--red)';return}close();return mutate(()=>{S=o},'Backup importato')}
-    case 'undo':{if(!undo.length)return;S=JSON.parse(undo.pop());S.rev=Date.now();try{localStorage.setItem('m4gt4-mileage',JSON.stringify(S))}catch(_){}render();schedule();$('#toast')&&$('#toast').remove();return}
+    case 'import':{let o;try{o=migrate(JSON.parse(v('tj')))}catch(_){}if(!o||!Array.isArray(o.cars)||!o.cars.length){$('#tj').style.borderColor='var(--red)';return}close();return mutate(()=>{const cur=S.cur;applyInPlace(o);if(cur)S.cur=cur},'Backup importato')}
+    case 'undo':return doUndo();
+    case 'logout':close();if(cloud)cloud.auth.signOut();return;
+    case 'reset':{const em=v('le');if(!em){$('#lerr').textContent='Scrivi prima la tua email.';return}cloud.auth.sendPasswordResetEmail(em).then(()=>{$('#lerr').textContent='Ti abbiamo inviato un\'email per reimpostare la password.'},er=>{$('#lerr').textContent=AUTHMSG[er.code]||'Invio non riuscito.'});return}
   }
 });
+document.addEventListener('submit',e=>{if(e.target.id==='lf'){e.preventDefault();doLogin()}});
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape'&&$('#ov').innerHTML)close();
   if(e.key==='Enter'&&e.target.classList.contains('row'))dComp(e.target.dataset.open);
 });
-document.addEventListener('change',e=>{if(e.target.id==='carsel'){const val=e.target.value;if(val==='+'){e.target.value=S.cur;return dCar(false)}S.cur=val;try{localStorage.setItem('m4gt4-mileage',JSON.stringify(S))}catch(_){}render()}});
-document.addEventListener('input',e=>{if(e.target.id==='q'){q=e.target.value;const p=e.target.selectionStart;render();const i=$('#q');i.focus();i.setSelectionRange(p,p)}});
+document.addEventListener('change',e=>{
+  const t=e.target;
+  if(t.id==='carsel'){const val=t.value;if(val==='+'){t.value=S.cur;return dCar(false)}S.cur=val;if(!cloud)try{localStorage.setItem('m4gt4-mileage',JSON.stringify(S))}catch(_){}render()}
+  if(t.id==='tev'){tev=t.value;render()}
+  if(t.id==='tdone'){tdone=t.checked;render()}
+  if(t.classList.contains('sts')){evSt[+t.dataset.si].set=t.value;stSum()}
+});
+document.addEventListener('input',e=>{
+  const t=e.target;
+  if(t.id==='q'){q=t.value;const p=t.selectionStart;render();const i=$('#q');i.focus();i.setSelectionRange(p,p)}
+  if(t.classList.contains('stk')){evSt[+t.dataset.si].km=t.value;stSum()}
+});
 $('#ov').addEventListener('click',e=>{if(e.target.classList.contains('ov'))close()});
-
-render();
 addEventListener('scroll',()=>{const y=scrollY,n=mini?y>40:y>140;if(n!==mini){mini=n;const h=$('#hd');if(h)h.classList.toggle('mini',mini)}},{passive:true});
-let tries=0;const hook=()=>{if(window.claude&&window.claude.use){window.claude.use('artifact').then(a=>{art=a;if(a){setSave('Salvato');if(pending)schedule()}}).catch(()=>{})}else if(++tries<20)setTimeout(hook,250)};hook();
+addEventListener('hashchange',()=>{if(['login','loading','error'].includes(view))return;view=routeView();render();scrollTo(0,0)});
+addEventListener('popstate',()=>{if(['login','loading','error'].includes(view))return;view=routeView();render()});
+addEventListener('online',()=>{online=true;render()});
+addEventListener('offline',()=>{online=false;render()});
+
+/* ---------- avvio ---------- */
+function loadJs(u){return new Promise((res,rej)=>{const s=document.createElement('script');s.src=u;s.onload=res;s.onerror=()=>rej(new Error('impossibile caricare '+u.split('/').pop()));document.head.appendChild(s)})}
+function applyServer(d){
+  cloud.rev=d.rev;lastAt=d.at||0;if('persisted' in d)cloud.persisted=d.persisted;
+  if(d.json)applyInPlace(JSON.parse(d.json));
+}
+async function seed(){
+  let base=null;try{const ls=migrate(JSON.parse(localStorage.getItem('m4gt4-mileage')));if(ls&&ls.cars&&ls.cars.some(c=>!c.demo))base=ls}catch(_){}
+  if(!base)base=blankState();base.cars=base.cars.filter(c=>!c.demo);if(!base.cars.length)base=blankState();base.rev=Date.now();
+  const r=await fetch('/api/state',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({base:0,json:JSON.stringify(base)})});
+  const d=await r.json();if(r.ok){cloud.rev=d.rev;lastAt=d.at;applyInPlace(base)}else if(r.status===409)applyServer(d);
+}
+function stream(){
+  if(cloud.es)cloud.es.close();
+  const es=new EventSource('/api/stream');cloud.es=es;
+  es.onopen=()=>{cloud.ok=true;clearTimeout(cloud.downT);render()};
+  es.onmessage=ev=>{try{const d=JSON.parse(ev.data);if(d.rev!==cloud.rev&&d.json){applyServer(d);saveMsg=syncTxt();if(!['loading','error'].includes(view))render()}}catch(_){}};
+  es.onerror=()=>{clearTimeout(cloud.downT);cloud.downT=setTimeout(()=>{if(es.readyState!==1){cloud.ok=false;render()}},4000)};
+}
+async function bootServer(){
+  view='loading';S=S||blankState();render();
+  try{
+    const r=await fetch('/api/state',{cache:'no-store'});
+    if(!r.ok)throw new Error('server '+r.status);
+    const d=await r.json();
+    cloud={rev:0,ok:true,persisted:d.persisted};
+    if(!d.json)await seed();else applyServer(d);
+    saveMsg=syncTxt();view=routeView();render();stream();
+    return true;
+  }catch(e){cloud=null;return false}
+}
+function bootLocal(){
+  S=load();view=routeView();render();
+  let tries=0;const hook=()=>{if(window.claude&&window.claude.use){window.claude.use('artifact').then(a=>{art=a;if(a){setSave('Salvato');if(pending)schedule()}}).catch(()=>{})}else if(++tries<20)setTimeout(hook,250)};hook();
+}
+(async()=>{if(TRY_SERVER&&await bootServer())return;bootLocal()})();
+
 }
 </script>
 </body>
