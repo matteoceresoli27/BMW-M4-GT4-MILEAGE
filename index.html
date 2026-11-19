@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>M4 GT4 Mileage</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style id="css">
+/* VOICE work: a team's pit-wall tool, calm and exact
+   IDEA the component life sheet a race engineer keeps on a clipboard in the garage
+   PICTURE large life meters of the parts closest to their limit, beside the odometer
+   COLOUR carbon header band, white ground, signal blue for actions, red / amber / green for state
+   TYPE Barlow Condensed for figures and titles + Barlow for text
+   LAYOUT header band with odometer; meters left + tallies right; tabs below. Phone: stacked */
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#0f1114);--ink:light-dark(#121418,#eceef1);--mut:light-dark(#5d636c,#9aa1ab);--line:light-dark(#e3e5e8,#262a30);--panel:light-dark(#f5f6f7,#171a1e);--track:light-dark(#e9ebee,#252930);--blue:light-dark(#0b57d0,#5b9bff);--red:light-dark(#d4231a,#ff5a4f);--amb:light-dark(#c98a00,#ffbe2e);--grn:light-dark(#178a4c,#3fcf82);--carbon:#000000}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.5 Barlow,system-ui,sans-serif;overflow-x:clip}
+button,input,select,textarea{font:inherit;color:inherit}
+.wrap{max-width:1240px;margin:0 auto;padding:0 max(4vw,16px)}
+.hd{background:var(--carbon);color:#f3f4f6;padding:18px 0 22px;position:sticky;top:0;z-index:10;transition:padding .2s}
+.hd.mini{padding:8px 0 10px;box-shadow:0 4px 18px rgba(0,0,0,.35)}
+.hd.mini .logos{padding-bottom:8px;margin-bottom:8px}
+.hd.mini .logos .fs{max-height:30px}.hd.mini .logos .bm{max-height:28px}
+.hd.mini h1{font-size:24px;margin:0}
+.hd.mini .odo b{font-size:34px}
+.hd.mini .carsel select{min-height:34px;padding:4px 8px}
+.hd.mini .hdrow{align-items:center;gap:8px 20px}
+.hd.mini .acts{margin-top:8px}
+.hd.mini .acts .btn{min-height:36px;padding:0 12px;font-size:14px}
+.hd.mini .sub,.hd.mini .odo span{font-size:13px}
+html{scroll-padding-top:150px}
+.logos{display:flex;justify-content:space-between;align-items:center;gap:20px;padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid #2a2f36}
+.logos img{display:block;height:auto;width:auto}
+.logos .fs{max-height:56px;max-width:42%}
+.logos .bm{max-height:52px;max-width:50%}
+@media(max-width:600px){.logos .fs{max-height:40px}.logos .bm{max-height:36px}}
+.hdrow{display:flex;flex-wrap:wrap;gap:16px 28px;align-items:flex-end;justify-content:space-between}
+.car{display:flex;flex-direction:column;gap:6px}
+.carsel{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.carsel select{background:#1d2127;border:1px solid #333a43;border-radius:8px;padding:8px 10px;min-height:40px;color:#f3f4f6;font-weight:600}
+h1{font:700 clamp(32px,4.4vw,48px)/1.05 "Barlow Condensed",sans-serif;letter-spacing:-.01em;margin:4px 0 0}
+.sub{color:#a9b0ba;font-size:15px}
+.odo{text-align:right}
+.odo b{display:block;font:700 clamp(44px,7vw,76px)/1 "Barlow Condensed",sans-serif;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.odo span{color:#a9b0ba;font-size:15px}
+.acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.btn{border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:0 16px;min-height:44px;font-weight:600;cursor:pointer;white-space:nowrap}
+.btn:hover{border-color:var(--mut)}
+.btn:focus-visible,.chip:focus-visible,.tab:focus-visible,.row:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.btn.pri{background:var(--blue);border-color:var(--blue);color:#fff}
+.hd .btn{background:#1d2127;border-color:#333a43;color:#f3f4f6}
+.hd .btn.pri{background:#2f7bff;border-color:#2f7bff}
+.btn.sm{min-height:36px;padding:0 12px;font-size:14px}
+.btn.dng{color:var(--red)}
+.save{font-size:13px;color:#a9b0ba;margin-left:auto;align-self:center}
+.top{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:28px;padding:28px 0 8px}
+h2{font:600 26px/1.1 "Barlow Condensed",sans-serif;margin:0 0 14px}
+.meters{display:flex;flex-direction:column;gap:12px}
+.m{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;cursor:pointer;padding:6px 0;border:0;background:none;text-align:left;width:100%}
+.m .nm{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.m .rt{font:600 17px "Barlow Condensed",sans-serif;white-space:nowrap;font-variant-numeric:tabular-nums}
+.bar{grid-column:1/-1;height:12px;background:var(--track);border-radius:6px;overflow:hidden;position:relative}
+.bar i{position:absolute;left:0;top:0;bottom:0;border-radius:6px}
+.bar.th{height:7px}
+.m small{grid-column:1/-1;color:var(--mut);font-size:13px}
+.tally{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.t{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px;text-align:left;cursor:pointer}
+.t b{display:block;font:700 40px/1 "Barlow Condensed",sans-serif;font-variant-numeric:tabular-nums}
+.t span{font-size:14px;color:var(--mut)}
+.t.r b{color:var(--red)}.t.a b{color:var(--amb)}.t.g b{color:var(--grn)}
+.last{margin-top:18px}
+.last li{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px solid var(--line);font-size:15px}
+.last ul{list-style:none;margin:0;padding:0}
+.last em{font-style:normal;color:var(--mut);white-space:nowrap}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-top:22px;overflow-x:auto}
+.tab{flex:none;border:0;background:none;padding:12px 16px;min-height:44px;font:600 18px "Barlow Condensed",sans-serif;color:var(--mut);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
+.tab[aria-selected=true]{color:var(--ink);border-color:var(--blue)}
+.tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:16px 0}
+.tools input[type=search]{flex:1 1 220px;border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:0 14px;min-height:44px}
+.chip{border:1px solid var(--line);background:var(--bg);border-radius:20px;padding:0 14px;min-height:36px;cursor:pointer;font-size:14px;font-weight:500;white-space:nowrap}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.grp{margin:10px 0 24px}
+.grp h3{font:600 20px "Barlow Condensed",sans-serif;margin:0;padding:8px 0;border-bottom:2px solid var(--ink);display:flex;justify-content:space-between}
+.grp h3 span{color:var(--mut);font-size:15px;font-weight:500}
+.row{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) 150px;gap:6px 20px;align-items:center;padding:12px 4px;border-bottom:1px solid var(--line);cursor:pointer}
+.row:hover{background:var(--panel)}
+.row.off{opacity:.45}
+.pn{color:var(--mut);font-size:13px;font-variant-numeric:tabular-nums}
+.nm2{font-weight:600}
+.s1{display:inline-block;font-size:11px;font-weight:600;border:1px solid var(--mut);color:var(--mut);border-radius:4px;padding:0 4px;margin-left:6px;vertical-align:2px}
+.lf{display:flex;flex-direction:column;gap:4px}
+.lf .k{display:flex;justify-content:space-between;gap:8px;font-size:14px;font-variant-numeric:tabular-nums}
+.lf .k span{color:var(--mut)}
+.st{font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px}
+.st::before{content:"";width:10px;height:10px;border-radius:50%;background:currentColor;flex:none}
+.c3{color:var(--red)}.c2{color:var(--amb)}.c1{color:var(--amb)}.c0{color:var(--grn)}.cn{color:var(--mut)}
+.b3{background:var(--red)}.b2,.b1{background:var(--amb)}.b0{background:var(--grn)}.bn{background:var(--mut)}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th{text-align:left;font-weight:600;color:var(--mut);font-size:13px;padding:8px 8px;border-bottom:2px solid var(--ink)}
+td{padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.nw{white-space:nowrap}
+.tag{font-size:12px;font-weight:600;border-radius:4px;padding:2px 6px;background:var(--panel);border:1px solid var(--line);white-space:nowrap}
+.empty{padding:40px 0;color:var(--mut);text-align:center}
+.demo{background:light-dark(#fff4d6,#2b2410);border-bottom:1px solid light-dark(#f0d58a,#4d4120);font-size:15px}
+.demo .wrap{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding-top:10px;padding-bottom:10px}
+.ov{position:fixed;inset:0;background:rgba(10,12,15,.55);display:flex;align-items:flex-start;justify-content:center;padding:5vh 12px;overflow-y:auto;z-index:20}
+.dlg{background:var(--bg);color:var(--ink);border-radius:16px;width:min(620px,100%);padding:22px;box-shadow:0 10px 40px rgba(0,0,0,.3)}
+.dlg h2{margin-bottom:6px}
+.dlg .lead{color:var(--mut);margin:0 0 14px;font-size:15px}
+.fld{display:flex;flex-direction:column;gap:4px;margin-bottom:12px}
+.fld label{font-size:14px;font-weight:600}
+.fld input,.fld select,.fld textarea{border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:10px 12px;min-height:44px;font-size:16px;width:100%}
+.fld .hint{font-size:13px;color:var(--mut)}
+.f2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 12px}
+.seg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:8px}
+.seg button{flex:1;border:0;background:none;min-height:40px;cursor:pointer;font-weight:600;font-size:14px}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+.foot{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end;margin-top:16px}
+.foot .l{margin-right:auto}
+.pick{max-height:300px;overflow-y:auto;border:1px solid var(--line);border-radius:10px;padding:4px 10px;margin-bottom:12px}
+.pick label{display:flex;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid var(--line);font-size:15px;cursor:pointer}
+.pick label:last-child{border:0}
+.pick input{width:20px;height:20px;flex:none}
+.pick .pn{margin-left:auto;white-space:nowrap}
+.pre{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(9em,1fr));gap:10px;margin:12px 0}
+.kv div{background:var(--panel);border-radius:10px;padding:10px 12px}
+.kv b{display:block;font:700 24px "Barlow Condensed",sans-serif;font-variant-numeric:tabular-nums}
+.kv span{font-size:13px;color:var(--mut)}
+.hist{list-style:none;padding:0;margin:8px 0 0;font-size:14px}
+.hist li{padding:6px 0;border-bottom:1px solid var(--line)}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--carbon);color:#fff;border-radius:12px;padding:10px 12px 10px 18px;display:flex;gap:14px;align-items:center;z-index:30;box-shadow:0 6px 24px rgba(0,0,0,.3);max-width:calc(100% - 24px)}
+.toast button{background:none;border:1px solid #444b55;color:#fff;border-radius:8px;min-height:36px;padding:0 12px;cursor:pointer;font-weight:600}
+.note{font-size:13px;color:var(--mut);padding:24px 0 40px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media(max-width:900px){.top{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:700px){.row{grid-template-columns:minmax(0,1fr) auto}.row .lf{grid-column:1/-1;grid-row:2}.f2{grid-template-columns:minmax(0,1fr)}.odo{text-align:left}.save{margin-left:0;width:100%}}
+@media(max-width:600px){.hd.mini .sub,.hd.mini .odo span,.hd.mini .save,.hd.mini .carsel{display:none}.hd.mini .car{flex-direction:row;align-items:baseline;gap:10px}.hd.mini h1{font-size:20px}.hd.mini .odo b{font-size:26px}.hd.mini .hdrow{flex-wrap:nowrap;justify-content:space-between}.hd.mini .acts{flex-wrap:nowrap;overflow-x:auto;gap:6px;scrollbar-width:none}.hd.mini .acts .btn{flex:none}.hd.mini .acts .btn{font-size:13px;padding:0 10px}table{font-size:13px}th,td{padding:6px 4px}.hide-s{display:none}}
+@media(prefers-reduced-motion:no-preference){.bar i{transition:width .5s ease}}
+</style>
+<script id="state" type="application/json">null</script>
+</head>
+<body>
+<div id="app"></div>
+<div id="ov"></div>
+<script id="app-js">
+{
+/* ---------- Catalogo dal Technical Customer Manual V2.3, App. D + capitoli ---------- */
+const LOGO_FS='data:image/png;base64,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';
+const LOGO_BMW='data:image/png;base64,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';
+const GR={mot:'Motore',carb:'Alimentazione carburante',scar:'Scarico',tras:'Cambio e trasmissione',ant:'Asse anteriore',ste:'Sterzo',post:'Asse posteriore',fre:'Freni',ruo:'Ruote',car:'Carrozzeria e aerodinamica',sic:'Sicurezza ed elettrica',cus:'Componenti aggiunti'};
+const ST={V:'Ispezione visiva',C:'Controllo cricche',P:'Controllo gioco e cricche',R:'Revisione presso fornitore',X:'Revisione (vedi manuale)',I:'Ispezione (vedi manuale)',B:'Controllo viti / revisione fornitore',H:'Controllo indurimento, fragilità, cricche',E:'Sostituire alla scadenza',T:'Sostituire dopo ogni traino',S:'Service',F:'Controllo, pulizia o sostituzione',A:'Service a inizio stagione'};
+const K=(g,hg,pn,it,en,life,svc,st,mo,s1,slot,vl)=>({g,hg,pn,it,en,life,svc,st,mo,s1:!!s1,slot,vl});
+const CAT=[
+K('mot','0575','1998024','Motore S58B30T0','ENGINE S58B30T0',30000,5000,'I'),
+K('mot','1128','8580360','Tenditore meccanico cinghia','MECHANICAL BELT TENSIONER',30000),
+K('mot','','—','Cinghia trapezoidale','V-Belt (p. 27)',10000),
+K('mot','','—','Candele','Spark plugs (p. 27)',5000),
+K('mot','','—','Filtro aria','Air filter, 5,000 km or earlier (p. 27)',5000),
+K('mot','','8092620','Filtro olio motore','Oil filter cartridge',5000),
+K('mot','','—','Olio motore','Engine oil (p. 27)',5000),
+K('mot','1165','8445661','Protezione termica','THERMAL PROTECTION',10000),
+K('mot','1371','8469700','Distanziale','SPACER',10000),
+K('mot','1712','8053470','Tubo sfiato testata – vaso espansione','LINE CYLINDER HEAD EXPANSION TANK (check shrink tube)',0,5000,'V'),
+K('carb','1351','8445657','Tubo carburante GT4 V1','FUEL HOSE GT4 V1',30000,0,'',0,1),
+K('carb','1600','8417489','Serbatoio carburante ATL','FUEL TANK',0,30000,'E',0,1),
+K('carb','1600','—','Guarnizioni valvola di non ritorno serbatoio','Tank non-return valve sealings (ch. 3.5)',0,0,'S',24),
+K('carb','1612','8418087','Tubo carburante sensore – paratia','FUEL HOSE SENSOR TO FIREWALL',30000,5000,'V',0,1),
+K('carb','1612','8418088','Tubo carburante paratia – tunnel','FUEL HOSE FIREWALL TO TUNNEL',30000,5000,'V',0,1),
+K('carb','1612','8418091','Tubo carburante tunnel','FUEL HOSE TUNNEL',30000,5000,'V',0,1),
+K('carb','1612','8418090','Raccordo a T svuotamento','DE FUELING T-PIECE',30000,5000,'V',0,1),
+K('carb','1612','8416780','Raccordo Dash D06','DASH D06',30000,5000,'V',0,1),
+K('carb','1612','8431388','Innesto rapido Krontec','KRONTEC QUICK COUPLING WITH TOE',30000,5000,'V',0,1),
+K('scar','1810','8437986','Downpipe cil. 1-3','DOWNPIPE Zyl. 1-3',15000,5000,'V',0,0,'dp13','standard'),
+K('scar','1810','8445713','Downpipe cil. 1-3','DOWNPIPE Zyl. 1-3 (1.8 mm)',30000,5000,'V',0,0,'dp13','1,8 mm'),
+K('scar','1810','8437987','Downpipe cil. 4-6','DOWNPIPE Zyl. 4-6',15000,5000,'V',0,0,'dp46','standard'),
+K('scar','1810','8445714','Downpipe cil. 4-6','DOWNPIPE Zyl. 4-6 (1.8 mm)',30000,5000,'V',0,0,'dp46','1,8 mm'),
+K('scar','1810','8445606','Impianto di scarico anteriore','EXHAUST SYSTEM FRONT',30000,5000,'V'),
+K('scar','1810','9503715','Silenziatore posteriore','REAR SILENCER WITH EXHAUST FLAP',30000,5000,'V',0,0,'sil','con valvola'),
+K('scar','1810','8445658','Silenziatore posteriore','REAR SILENCER NOISE-REDUCED',30000,5000,'V',0,0,'sil','silenziato'),
+K('scar','1810','8445605','Terminale di scarico dx','EXHAUST TAILPIPE RH',30000,5000,'V'),
+K('scar','1810','8445611','Terminale di scarico sx','EXHAUST TAILPIPE LH',30000,5000,'V'),
+K('scar','1810','8445612','Supporto impianto di scarico','MOUNT EXHAUST SYSTEM',30000,5000,'V'),
+K('scar','1820','7883020','Supporto cambio','TRANSMISSION BRACKET',30000,5000,'V'),
+K('scar','1832','8468992','Supporto catalizzatore lato motore','HOLDER CATALYTIC CONVERTER NEAR ENGINE',15000,5000,'V'),
+K('tras','2400','5A7E9E1','Cambio M8HP76','A-GBX M8HP76 G82 GT4',30000,5000,'V'),
+K('tras','2400','—','Service cambio (olio BMW ATF 3+)','Automatic transmission service (ch. 4.1)',0,15000,'S'),
+K('tras','2610','8349403','Albero di trasmissione leggero','ZB PROPSHAFT M4GT4 LEICHTBAU',30000,15000,'V'),
+K('tras','2610','7581110','Anelli smorzatori albero','DAMPER RING',15000),
+K('tras','3310','8445425','Differenziale 3,15 Drexler 40-30','FINAL DRIVE 225 I=3.15 LS DREXLER 40-30',30000,5000,'B',0,0,'fd','versione precedente'),
+K('tras','3310','8888911','Differenziale 3,15 Drexler 40-30','FINAL DRIVE 225 I=3.15 LS DREXLER 40-30 (new version)',30000,15000,'R',0,0,'fd','nuova versione'),
+K('tras','3310','—','Olio differenziale','Final drive oil, RAVENOL Racing Gearoil (ch. 4.2)',5000),
+K('tras','3310','—','Filtro olio differenziale','Final drive oil filter (ch. 4.2)',0,5000,'F'),
+K('tras','3315','8328144','Tampone in gomma pompa olio','RUBBER BUFFER OIL PUMP',0,0,'H',12),
+K('tras','3320','8448617','Semiasse sx','DRIVE SHAFT LH',10000,0,'',0,0,'dsl','8448617'),
+K('tras','3320','5B34F03','Semiasse sx','DRIVE SHAFT LH',10000,0,'',0,0,'dsl','5B34F03'),
+K('tras','3320','8448618','Semiasse dx','DRIVE SHAFT RH',10000,0,'',0,0,'dsr','8448618'),
+K('tras','3320','5B34F04','Semiasse dx','DRIVE SHAFT RH',10000,0,'',0,0,'dsr','5B34F04'),
+K('ant','3110','8447383','Montante anteriore in alluminio','REWORK 8095645 ZB VAT M ALU RWD',15000,5000,'C',0,1),
+K('ant','3110','8447678','Braccio oscillante anteriore','WISHBONE FA',30000,5000,'C',0,1),
+K('ant','3110','8452425','Snodo sferico anteriore','NA BALL JOINT VA',15000,5000,'P',0,1),
+K('ant','3110','8448653','Snodo sferico anteriore','NA BALL JOINT VA',15000,5000,'P',0,1),
+K('ant','3110','8418084','Puntone di trazione anteriore','TENSION STRUT VA',30000,5000,'C',0,1),
+K('ant','3110','8448621','Snodo sferico anteriore','BALL JOINT VA',15000,5000,'P',0,1),
+K('ant','3110','8431217','Snodo GAXSW14X1.5 MS sx','BALL JOINT GAXSW14X1.5 MS LH',15000,5000,'P',0,1,'gax','standard'),
+K('ant','3110','8431217','Snodo GAXSW14X1.5 MS sx','… on CONTROL ARM 8447678',5000,5000,'P',0,1,'gax','su braccio 8447678'),
+K('ant','3110','8431216','Snodo GAXSW14X1.5 MS','BALL JOINT GAXSW14X1.5 MS',30000,5000,'P'),
+K('ant','3120','8095663','Supporto ruota anteriore sx','LH CARRIER G8X RWD',15000,5000,'C',0,1),
+K('ant','3120','8095664','Supporto ruota anteriore dx','RH CARRIER G8X RWD',15000,5000,'C',0,1),
+K('ant','3110','8095643','Cuscinetto ruota anteriore','WHEEL BEARING LOW G8X VA',15000,5000,'P',0,1),
+K('ant','3120','8095641','Cuscinetto ruota G8X','WHEEL BEARING G8X',15000,5000,'P',0,1),
+K('ant','3110','8452424','Bussola di supporto','SUPPORT SLEEVE END',7500),
+K('ant','3110','8436382','Vite calibrata M6','FIT BOLT, M6 D8x16',7500,0,'',0,0,'fit','M6 D8x16'),
+K('ant','3110','8436383','Vite calibrata M6','FIT BOLT, M6x11 D8x16 (update V2.3)',15000,0,'',0,0,'fit','M6x11 D8x16'),
+K('ant','3130','8446323','Vite M10 barra antirollio','SCREW M10 WITH ANTI ROLL BAR CONNECTOR',30000,5000,'P',0,1),
+K('ant','3130','8418011','Cuscinetto supporto asse ant. sx','SUPPORT BEARING FRONT AXLE LH',30000,5000,'P'),
+K('ant','3130','8418012','Cuscinetto supporto asse ant. dx','SUPPORT BEARING FRONT AXLE RH',30000,5000,'P'),
+K('ant','3130','8448590','Ammortizzatore anteriore sx','SHOCK ABSORBER FRONT',30000,15000,'R'),
+K('ant','3130','8448590','Ammortizzatore anteriore dx','SHOCK ABSORBER FRONT',30000,15000,'R'),
+K('ste','3210','8417975','Servosterzo EPS','EPS-APA G80 RWD LL',5000,5000,'V',0,1,'eps','8417975'),
+K('ste','3210','8452444','Servosterzo EPS','EPS-APA G80 RWD LL',15000,5000,'V',0,1,'eps','8452444'),
+K('ste','3210','6799960','Tirante sterzo sx','TIE ROD LEFT RWD',30000,5000,'P',0,1),
+K('ste','3210','6799965','Tirante sterzo dx','TIE ROD RIGHT RWD',30000,5000,'P',0,1),
+K('ste','3220','8448622','Snodo tirante sterzo','BALL JOINT TIE ROD',15000,5000,'P',0,1),
+K('ste','3230','8095761','Piantone sterzo','STEERING SHAFT LL RWD NT V9.2M',30000,5000,'P',0,1),
+K('ste','3230','8417977','Tubo adattatore scatola sterzo','ADAPTER PIPE STEERING RACK',30000,5000,'P',0,1),
+K('ste','3230','8095844','Albero sterzo inferiore','STEERING SHAFT LOWER PART NT 9.2-11.2',30000,5000,'P',0,1),
+K('ste','3230','8417980','Colonna sterzo','REWORK 9504272 STEERING COLUMN',30000,5000,'P',0,1),
+K('ste','3230','8417978','Adattatore colonna degressivo','ADAPTER STEERING COLUMN DEGRESSIV',30000,5000,'C',0,1),
+K('ste','3230','8428954','Sgancio rapido volante','STEERING WHEEL SNAP FASTENER',30000,5000,'C',0,1),
+K('ste','3230','8321700','Distanziale volante 20 mm','STEERING WHEEL SPACER 20MM',30000,5000,'C',0,1),
+K('ste','3233','8448852','Volante','STEERING WHEEL',30000,5000,'V'),
+K('post','3330','8448579','Telaio ausiliario posteriore','REAR AXLE CARRIER G82 GT4',5000,5000,'C',0,1,'rac','8448579'),
+K('post','3330','8452451','Telaio ausiliario posteriore','REAR AXLE CARRIER G82 GT4',15000,5000,'C',0,0,'rac','8452451'),
+K('post','3330','8418135','Braccio longitudinale superiore','TRAILING ARM TOP RA',30000,5000,'C',0,1),
+K('post','3330','8431957','Snodo sferico posteriore MK3','BALL JOINT HA MK3',15000,5000,'P',0,1),
+K('post','3330','8418134','Tirante convergenza posteriore','TRACK ROD RA',30000,5000,'C',0,1),
+K('post','3330','8448479','Braccio superiore','CONTROL ARM TOP',30000,5000,'C'),
+K('post','3330','8418137','Braccio campanatura posteriore','CAMBER CONTROL ARM RA',30000,5000,'C',0,1),
+K('post','3340','8417939','Portamozzo posteriore sx','WHEEL CARRIER RA LH',30000,5000,'C',0,1),
+K('post','3340','8417940','Portamozzo posteriore dx','WHEEL CARRIER RA RH',30000,5000,'C',0,1),
+K('post','3350','8418023','Cuscinetto di supporto','SUPPORT BEARING',30000,5000,'C'),
+K('post','3350','8448587','Ammortizzatore posteriore sx','SHOCK ABSORBER REAR LEFT',30000,15000,'R'),
+K('post','3350','8448588','Ammortizzatore posteriore dx','SHOCK ABSORBER REAR RIGHT',30000,15000,'R'),
+K('fre','3410','8417983','Pinza freno anteriore sx','LH BRAKE CALIPER FA',30000,15000,'X',0,1),
+K('fre','3410','8417984','Pinza freno anteriore dx','RH BRAKE CALIPER FA',30000,15000,'X'),
+K('fre','3410','8448727/28/29','Pistoni pinza anteriore (set)','BRAKE PISTON FRONT 1.06 / 1.25 / 1.50 X35.2',30000),
+K('fre','3410','8447281/82','Pistoni pinza posteriore (set)','BRAKE PISTON REAR 28.58 / 36.0 X31.4',30000),
+K('fre','3410','8417989','Staffa pinza anteriore sx','LH BRAKE CALIPER MOUNTING BRACKET FA',30000,5000,'C',0,1),
+K('fre','3410','8417990','Staffa pinza anteriore dx','RH BRAKE CALIPER MOUNTING BRACKET FA',30000,5000,'C',0,1),
+K('fre','3410','8447733','Campana disco anteriore HD','HAT FA HD',15000,5000,'C',0,1),
+K('fre','3420','8417985','Pinza freno posteriore sx','LH BRAKE CALIPER RA',30000,15000,'X',0,1),
+K('fre','3420','8417986','Pinza freno posteriore dx','RH BRAKE CALIPER RA',30000,15000,'X',0,1),
+K('fre','3420','8417991','Staffa pinza posteriore sx','LH BRAKE CALIPER MOUNTING BRACKET RA',30000,5000,'C',0,1),
+K('fre','3420','8417992','Staffa pinza posteriore dx','RH BRAKE CALIPER MOUNTING BRACKET RA',30000,5000,'C',0,1),
+K('fre','3420','8447734','Campana disco posteriore HD','HAT RA HD',15000,5000,'C',0,1),
+K('fre','3430','8428605','Pompa freno asse anteriore','MASTERCYLINDER 22.4MM',30000,5000,'X',0,1,'mcf','22,4 mm'),
+K('fre','3430','8428606','Pompa freno asse anteriore','MASTERCYLINDER 23.7MM',30000,5000,'X',0,1,'mcf','23,7 mm'),
+K('fre','3430','8428607','Pompa freno asse anteriore','MASTERCYLINDER 25.4MM',30000,5000,'X',0,1,'mcf','25,4 mm'),
+K('fre','3430','8428605','Pompa freno asse posteriore','MASTERCYLINDER 22.4MM',30000,5000,'X',0,1,'mcr','22,4 mm'),
+K('fre','3430','8428606','Pompa freno asse posteriore','MASTERCYLINDER 23.7MM',30000,5000,'X',0,1,'mcr','23,7 mm'),
+K('fre','3430','8428607','Pompa freno asse posteriore','MASTERCYLINDER 25.4MM',30000,5000,'X',0,1,'mcr','25,4 mm'),
+...[['8418110','pedale – sensore, ant.','FRONT PEDAL TO SENSOR',1],['8418111','pedale – sensore, post.','REAR PEDAL TO SENSOR',1],['8336094','distributore 90°','DISTRIBUTOR BRAKE PIPE 1X 90 DEG',0],['8418112','ant. sensore – paratia','FA SENSOR TO FRONT WALL',0],['8418115','ant. paratia – DSC','FA FRONT WALL TO DSC',0],['8418117','ant. DSC – sx','FA DSC TO LH',0],['8418118','ant. DSC – dx','FA DSC TO RH',1],['8418119','dx – passaruota','RH TO WA',1],['8095735','V. VST. N. VR LL','V. VST. N. VR LL',1],['8418122','post. sensore – paratia','HA SENSOR TO FRONT WALL',1],['8418123','post. paratia – DSC','RA WALL TO DSC',1],['8418125','post. DSC – paratia sx','RA DSC TO WALL LH',1],['8418126','post. DSC – paratia dx','RA DSC WALL RH',1],['8418127','post. – raccordo sx','RA TO CONNECTOR LH',1],['8446417','post. raccordo – passaruota sx','RA CONNECTOR TO WA LH',1],['8418128','post. paratia – raccordo dx','RA WALL TO CONNECTOR RH',1],['8447509','post. raccordo – passaruota dx','RA CONNECTOR TO WA RH',1],['8447705','ant. passaruota – pinza','FA WA TO CALIPER',1],['8446536','post. passaruota – pinza','RA WA TO CALIPER',1]].map(a=>K('fre','3430',a[0],'Tubo freno '+a[1],'BRAKE LINE '+a[2],30000,5000,'V',0,a[3])),
+K('fre','3450','5A44C28','Centralina DSC MK100','DSC MK100',30000,5000,'V',0,1),
+K('fre','3500','8417882','Pedaliera freno AP CP5548-5','PEDALBOX ONLY BRAKE PEDAL AP CP5548-5',30000,5000,'P',0,1),
+K('ruo','3610','8447606','Cerchi 11 x 18 ET-8','RIMS FA/RA - 11 X 18 - ET-8MM',6000,3000,'C',0,1),
+K('ruo','3610','8447320','Prigionieri ruota M14x2','WHEEL STUD M14X2',15000,0,'',0,1),
+K('car','4100','8417896','Scocca','BODY IN WHITE',30000,5000,'V',0,1),
+K('car','4100','8082031','Staffa pannello laterale ant. sx','SIDE PANEL BRACKET FRONT LEFT 1',0,5000,'C'),
+K('car','4100','8082032','Staffa pannello laterale ant. dx','SIDE PANEL BRACKET FRONT RIGHT 1',0,5000,'C'),
+K('car','4150','8418740','Tampone fermaporta M6','DOOR STOP BUFFER M6 25x18 mm',0,0,'H',12),
+K('car','5121','8344274','Cavo apertura porta esterno','BOWDEN CABLE, DOOR OPENER, OUTSIDE',0,5000,'V'),
+K('car','5121','8344276','Cavo apertura porta interno','BOWDEN CABLE, DOOR OPENER, INSIDE',0,5000,'V'),
+K('car','5162','8447373','Alettone posteriore','REAR WING',30000,15000,'V',0,1),
+K('car','5162','8447613','Supporto alettone sx','REAR WING MOUNT LH',30000,5000,'C',0,1),
+K('car','5162','8447614','Supporto alettone dx','REAR WING MOUNT RH',30000,5000,'C',0,1),
+K('car','5162','8417875','Adattatore supporto alettone sx','REAR WING MOUNT ADAPTER LH',30000,5000,'C',0,1),
+K('car','5162','8417876','Adattatore supporto alettone dx','REAR WING MOUNT ADAPTER RH',30000,5000,'C',0,1),
+K('car','5162','8418396','Forcella alettone dx','FORK PIECE REAR WING RH',30000,5000,'C',0,1),
+K('car','5171','8324128','Piastra zavorra MK2','BALLASTBOX PLATE MK2',30000,5000,'C',0,1),
+K('car','5176','7183752','Regolatore cofano','BONNET ADJUSTER',0,0,'H',12),
+K('car','','—','Passacavi in gomma zone calde','Rubber grommets exposed to heat (annual check)',0,0,'H',12),
+K('sic','5200','8447757','Sedile Recaro M4 GT4','RECARO SEAT M4GT4',0,0,'E',0,1),
+K('sic','7211','8417339','Cinture FIA 8853-2016','SEATBELT FIA 8853-2016',0,0,'E',0,1),
+K('sic','6572','7744033','Bombola estintore Lifeline Zero 275','BOTTLE LIFELINE ZERO 275',0,0,'E',0,1),
+K('sic','6121','8092860','Batteria Li-Ion 70 Ah','70AH LI-ION BATTERY',30000),
+K('sic','6131','8448801','Switchbox','SWITCHBOX',30000,0,'',0,1),
+K('sic','6131','8280887','Interruttore emergenza parabrezza','EMERGENCY POWER OFF WINDSCREEN',30000,0,'',0,1),
+K('sic','7112','8447346','Martinetti pneumatici LL24-250','AIR JACK LL24-250 (2 years / 2000 cycles)',30000,15000,'R',24),
+K('sic','7215','8416600','Cavo di traino','TOW CABLE',0,0,'T',24),
+K('sic','','—','Impianto aria condizionata','AC system service (once per season)',0,0,'A',12)
+];
+
+/* ---------- utilità ---------- */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const nf=n=>String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g,'.');
+const pad=n=>String(n).padStart(2,'0');
+const iso=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+const TODAY=iso(new Date());
+const fd=s=>{if(!s)return '—';const [y,m,d]=s.split('-');return d+'/'+m+'/'+y.slice(2)};
+const addM=(s,m)=>{const [y,mo,d]=s.split('-').map(Number);const x=new Date(y,mo-1+m,d);return iso(x)};
+const days=(a,b)=>Math.round((new Date(a+'T12:00')-new Date(b+'T12:00'))/864e5);
+const uid=()=>Math.random().toString(36).slice(2,9);
+const aft=(x,r)=>x.d>r.d||(x.d===r.d&&x.s>r.s);
+
+/* ---------- stato ---------- */
+let S;
+function makeComps(start,d){
+  const out=[],seen={};
+  CAT.forEach((k,i)=>{
+    if(k.slot){
+      if(seen[k.slot])return;
+      const vars=CAT.filter(x=>x.slot===k.slot).map(x=>({pn:x.pn,en:x.en,life:x.life,svc:x.svc,st:x.st,mo:x.mo,s1:x.s1,vl:x.vl}));
+      seen[k.slot]=1;
+      const v=vars[vars.length-1];
+      out.push({id:k.slot,g:k.g,hg:k.hg,name:k.it,vars,pick:vars.length-1,...v,on:true,startKm:start,svcStart:0,inst:{d,s:0},svcAt:null,exp:null,sn:''});
+    }else out.push({id:'c'+i,g:k.g,hg:k.hg,name:k.it,pn:k.pn,en:k.en,life:k.life,svc:k.svc,st:k.st,mo:k.mo,s1:k.s1,on:true,startKm:start,svcStart:0,inst:{d,s:0},svcAt:null,exp:null,sn:''});
+  });
+  return out;
+}
+function newCar(name,chassis,initKm,same,d){
+  return {id:uid(),name,chassis,initKm:+initKm||0,created:d,comps:makeComps(same?(+initKm||0):0,d),events:[],log:[]};
+}
+function demo(){
+  const c=newCar('M4 GT4 EVO #1','WBS-DEMO-0001',0,true,'2025-11-01');c.demo=true;
+  let s=1;
+  [['2026-03-14','Vallelunga – test','Test',420],['2026-04-12','Monza – prove e gare','Gara',610],['2026-05-17','Imola – weekend','Gara',680],['2026-06-21','Misano – weekend','Gara',590],['2026-07-19','Mugello – weekend','Gara',720],['2026-09-13','Paul Ricard – weekend','Gara',840],['2026-10-18','Barcellona – weekend','Gara',760],['2026-11-08','Varano – test','Test',300]].forEach(e=>{c.events.push({id:uid(),d:e[0],s:s++,title:e[1],type:e[2],km:e[3],note:''})});
+  const r={d:'2026-06-28',s:s++};
+  ['c3','c4','c5','c6'].forEach(id=>{const x=c.comps.find(k=>k.id===id);c.log.push({id:uid(),t:'rep',d:r.d,s:r.s,cid:id,name:x.name,pn:x.pn,km:kmAt(c,x,r),note:'Tagliando di metà stagione',prev:snap(x)});x.inst=r;x.startKm=0;x.svcStart=0;x.svcAt=null});
+  const r2={d:'2026-07-25',s:s++};c.comps.forEach(x=>{if(x.svc&&x.svc<=5000){c.log.push({id:uid(),t:'svc',d:r2.d,s:r2.s,cid:x.id,name:x.name,pn:x.pn,km:kmAt(c,x,r2),note:'Controllo 5.000 km',prev:snap(x)});x.svcAt={...r2}}});
+  c.comps.forEach(x=>{if(x.pn==='8447757')x.exp='2030-12-31';if(x.pn==='8417339')x.exp='2029-12-31';if(x.pn==='7744033')x.exp='2026-12-31';if(x.pn==='8417489')x.exp='2028-12-31'});
+  return {v:1,rev:0,seq:s,cur:c.id,warn:85,warnDays:60,cars:[c]};
+}
+function kmAt(car,x,ref){let k=x.startKm;for(const e of car.events)if(aft(e,x.inst)&&!aft(e,ref))k+=e.km;return k}
+function sumAft(car,ref){let k=0;for(const e of car.events)if(aft(e,ref))k+=e.km;return k}
+function snap(x){return JSON.parse(JSON.stringify({inst:x.inst,startKm:x.startKm,svcStart:x.svcStart,svcAt:x.svcAt,exp:x.exp,sn:x.sn,pick:x.pick}))}
+function load(){
+  let emb=null,ls=null;
+  try{emb=JSON.parse(document.getElementById('state').textContent)}catch(e){}
+  try{ls=JSON.parse(localStorage.getItem('m4gt4-mileage'))}catch(e){}
+  if(ls&&(!emb||ls.rev>emb.rev)){pending=true;return ls}
+  return emb||demo();
+}
+let pending=false;
+S=load();
+const car=()=>S.cars.find(c=>c.id===S.cur)||S.cars[0];
+const total=c=>c.initKm+c.events.reduce((a,e)=>a+e.km,0);
+
+/* ---------- calcolo stato componente ---------- */
+function stat(c,x){
+  const km=x.startKm+sumAft(c,x.inst);
+  const sref=x.svcAt&&aft(x.svcAt,x.inst)?x.svcAt:null;
+  const skm=sref?sumAft(c,sref):(x.svcStart||0)+sumAft(c,x.inst);
+  const lp=x.life?km/x.life:null, sp=x.svc?skm/x.svc:null;
+  let due=null;
+  if(x.st==='E'||x.exp)due=x.exp||null;
+  if(!due&&x.mo){const base=sref&&sref.d>x.inst.d?sref.d:x.inst.d;due=addM(base,x.mo)}
+  const dl=due?days(due,TODAY):null;
+  const W=S.warn/100,WD=S.warnDays;
+  let lv=0,lab='In regola',why='';
+  if(x.st==='E'&&!x.exp){lv=-1;lab='Scadenza da impostare'}
+  if(lp!==null&&lp>=1){lv=3;lab='Da sostituire'}
+  else if(dl!==null&&dl<0){lv=3;lab=x.st==='E'||x.st==='T'?'Scaduto':'Controllo scaduto'}
+  else if(sp!==null&&sp>=1){lv=2;lab='Controllo dovuto'}
+  else if((lp!==null&&lp>=W)||(dl!==null&&dl<=WD)){lv=1;lab='In scadenza'}
+  else if(sp!==null&&sp>=W){lv=1;lab='Controllo vicino'}
+  const tp=dl!==null?Math.max(0,1-dl/365):0;
+  const score=Math.max(lp||0,(sp||0)*.97,tp)+(lv===3?2:lv===2?1:0);
+  return {km,skm,lp,sp,due,dl,lv,lab,score,tp};
+}
+const cls=lv=>lv<0?'n':String(lv);
+function meterTxt(x,s){
+  if(s.lv===3&&s.lp>=1)return ['Superato di '+nf(s.km-x.life)+' km',1,s.lp];
+  if(s.dl!==null&&(s.dl<0||(!x.life&&!x.svc)||s.tp>Math.max(s.lp||0,s.sp||0)))return [s.dl<0?'Scaduto da '+(-s.dl)+' gg':'Scade tra '+s.dl+' gg',0,Math.min(1,Math.max(0,1-s.dl/365))];
+  const lr=x.life?x.life-s.km:Infinity,sr=x.svc?x.svc-s.skm:Infinity;
+  if(s.lv===2)return ['Controllo superato di '+nf(-sr)+' km',0,1];
+  if(sr<lr&&(s.sp||0)>(s.lp||0))return ['Controllo tra '+nf(sr)+' km',0,s.sp];
+  if(x.life)return ['Mancano '+nf(lr)+' km',1,s.lp];
+  if(s.dl!==null)return ['Scade tra '+s.dl+' gg',0,1-s.dl/365];
+  return ['—',0,0];
+}
+
+/* ---------- salvataggio ---------- */
+let art=null,ro=false,ptimer=null,saveMsg='Solo su questo dispositivo';
+const undo=[];
+function mutate(fn,msg){
+  undo.push(JSON.stringify(S));if(undo.length>25)undo.shift();
+  fn();S.rev=Date.now();
+  try{localStorage.setItem('m4gt4-mileage',JSON.stringify(S))}catch(e){}
+  render();if(msg)toast(msg,true);schedule();
+}
+function schedule(){if(!art||ro)return;pending=true;clearTimeout(ptimer);ptimer=setTimeout(publish,2500);setSave('Modifiche da salvare…')}
+async function publish(){
+  if($('#ov').innerHTML){ptimer=setTimeout(publish,1500);return}
+  setSave('Salvataggio…');
+  try{await art.publish(buildDoc());pending=false;setSave('Salvato')}
+  catch(e){const m=String(e&&e.message||e);if(/not_granted|not_writer/.test(m)){ro=true;setSave('Sola lettura')}else if(!/conflict/.test(m))setSave('Errore di salvataggio, riprovo…'),ptimer=setTimeout(publish,8000)}
+}
+function buildDoc(){
+  const head=document.head.cloneNode(false);
+  const css=document.getElementById('css').textContent,js=document.getElementById('app-js').textContent;
+  const st=JSON.stringify(S).replace(/</g,'\\u003c');
+  const E='</'+'script>',SE='</'+'style>';
+  return '<!DOCTYPE html>\n<html lang="it">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width,initial-scale=1">\n<title>M4 GT4 Mileage</title>\n<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">\n<style id="css">'+css+SE+'\n<script id="state" type="application/json">'+st+E+'\n</head>\n<body>\n<div id="app"></div>\n<div id="ov"></div>\n<script id="app-js">'+js+E+'\n</body>\n</html>\n';
+}
+function setSave(m){saveMsg=m;const el=$('#save');if(el)el.textContent=m}
+
+/* ---------- UI ---------- */
+let mini=false;
+let tab=(location.hash||'').slice(1)||'comp',filt='all',q='';
+if(!['comp','ev','log'].includes(tab))tab='comp';
+function render(){
+  const c=car(),tot=total(c);
+  const rows=c.comps.filter(x=>x.on).map(x=>({x,s:stat(c,x)}));
+  const n3=rows.filter(r=>r.s.lv===3).length,n2=rows.filter(r=>r.s.lv===2).length,n1=rows.filter(r=>r.s.lv===1).length,n0=rows.filter(r=>r.s.lv===0).length;
+  const top=rows.slice().sort((a,b)=>b.s.score-a.s.score).slice(0,8);
+  const evs=c.events.slice().sort((a,b)=>b.d.localeCompare(a.d)||b.s-a.s);
+  const le=evs[0];
+  $('#app').innerHTML=`
+${c.demo?`<div class="demo"><div class="wrap"><span>Stai guardando un telaio di esempio con dati inventati.</span><button class="btn sm" data-a="newcar">Crea il tuo telaio</button></div></div>`:''}
+<header class="hd${mini?' mini':''}" id="hd"><div class="wrap">
+ <div class="logos"><img class="fs" src="${LOGO_FS}" alt="FS Motorsport"><img class="bm" src="${LOGO_BMW}" alt="BMW Motorsport"></div>
+ <div class="hdrow">
+  <div class="car">
+   <div class="carsel"><label class="sr" for="carsel">Telaio</label><select id="carsel">${S.cars.map(k=>`<option value="${k.id}"${k.id===c.id?' selected':''}>${esc(k.name)}</option>`).join('')}<option value="+">+ Nuovo telaio…</option></select></div>
+   <h1>BMW M4 GT4 EVO</h1>
+   <div class="sub">Telaio ${esc(c.chassis||'—')} · ${c.events.length} eventi registrati</div>
+  </div>
+  <div class="odo"><b>${nf(tot)} km</b><span>${le?`Ultimo evento: ${esc(le.title)}, ${fd(le.d)}`:'Nessun evento ancora'}</span></div>
+ </div>
+ <div class="acts">
+  <button class="btn pri" data-a="event">+ Evento km</button>
+  <button class="btn" data-a="rep">Sostituisci componenti</button>
+  <button class="btn" data-a="svc">Registra controllo</button>
+  <button class="btn" data-a="settings">Impostazioni</button>
+  <span class="save" id="save">${esc(saveMsg)}</span>
+ </div>
+</div></header>
+<main class="wrap">
+ <section class="top">
+  <div>
+   <h2>${n3?`${n3} ${n3===1?'componente richiede':'componenti richiedono'} intervento`:n2?`${n2} controlli da eseguire`:'Prossime scadenze'}</h2>
+   <div class="meters">${top.map(({x,s})=>{const [t,,p]=meterTxt(x,s);return `<button class="m" data-open="${x.id}"><span class="nm">${esc(x.name)}</span><span class="rt c${cls(s.lv)}">${t}</span><span class="bar"><i class="b${cls(s.lv)}" style="width:${Math.min(100,Math.max(2,(p||0)*100)).toFixed(1)}%"></i></span><small>${esc(x.pn)}${x.life?` · ${nf(s.km)} / ${nf(x.life)} km`:''}${x.svc?` · controllo ogni ${nf(x.svc)} km`:''}${s.due?` · scadenza ${fd(s.due)}`:''}</small></button>`}).join('')}</div>
+  </div>
+  <aside>
+   <div class="tally">
+    <button class="t r" data-f="3"><b>${n3}</b><span>Da sostituire o scaduti</span></button>
+    <button class="t a" data-f="2"><b>${n2}</b><span>Controlli dovuti</span></button>
+    <button class="t a" data-f="1"><b>${n1}</b><span>In scadenza (≥ ${S.warn}%)</span></button>
+    <button class="t g" data-f="0"><b>${n0}</b><span>In regola</span></button>
+   </div>
+   <div class="last"><h2>Ultimi eventi</h2>${evs.length?`<ul>${evs.slice(0,5).map(e=>`<li><span>${esc(e.title)}</span><em>${fd(e.d)} · ${nf(e.km)} km</em></li>`).join('')}</ul>`:'<p class="empty">Aggiungi il primo evento con “+ Evento km”.</p>'}</div>
+  </aside>
+ </section>
+ <div class="tabs" role="tablist">
+  ${[['comp','Componenti ('+c.comps.filter(x=>x.on).length+')'],['ev','Eventi ('+c.events.length+')'],['log','Storico interventi ('+c.log.length+')']].map(([k,l])=>`<button class="tab" role="tab" aria-selected="${tab===k}" data-tab="${k}">${l}</button>`).join('')}
+ </div>
+ <section id="pane">${tab==='comp'?paneComp(c,rows):tab==='ev'?paneEv(c,evs):paneLog(c)}</section>
+ <p class="note">Limiti da “Technical Customer Manual V2.3”, Appendice D (Running Times) e capitoli 1.6, 3.5, 4.1–4.4, 7. Il manuale avverte che i valori vengono aggiornati con il programma di test: verifica sempre l'ultima revisione. “S1” riproduce la colonna S1 dell'Appendice D.</p>
+</main>`;
+}
+function paneComp(c,rows){
+  const all=c.comps.map(x=>({x,s:stat(c,x)}));
+  const ql=q.toLowerCase();
+  let list=all.filter(({x,s})=>{
+    if(filt==='off')return !x.on;
+    if(!x.on)return false;
+    if(filt==='3'||filt==='2'||filt==='1'||filt==='0')return s.lv===+filt;
+    if(filt==='time')return !!(x.mo||x.st==='E');
+    if(filt==='s1')return x.s1;
+    return true}).filter(({x})=>!ql||(x.name+' '+x.pn+' '+(x.en||'')+' '+x.hg+' '+(x.sn||'')).toLowerCase().includes(ql));
+  const chips=[['all','Tutti'],['3','Da sostituire'],['2','Controlli dovuti'],['1','In scadenza'],['0','In regola'],['time','A tempo'],['s1','S1'],['off','Non montati']];
+  const gs=Object.keys(GR).filter(g=>list.some(r=>r.x.g===g));
+  return `<div class="tools"><label class="sr" for="q">Cerca</label><input id="q" type="search" placeholder="Cerca per nome, codice o S/N" value="${esc(q)}">${chips.map(([k,l])=>`<button class="chip" aria-pressed="${filt===k}" data-f="${k}">${l}</button>`).join('')}<button class="btn sm" data-a="addcomp">+ Componente</button></div>
+  ${list.length?gs.map(g=>{const L=list.filter(r=>r.x.g===g).sort((a,b)=>b.s.score-a.s.score);return `<div class="grp"><h3>${GR[g]}<span>${L.length}</span></h3>${L.map(({x,s})=>rowHtml(x,s)).join('')}</div>`}).join(''):'<p class="empty">Nessun componente corrisponde.</p>'}`;
+}
+function rowHtml(x,s){
+  const lifeB=x.life?`<div class="k"><span>Vita</span><b>${nf(s.km)} / ${nf(x.life)} km</b></div><div class="bar th"><i class="b${s.lp>=1?3:s.lp>=S.warn/100?1:0}" style="width:${Math.min(100,s.lp*100).toFixed(1)}%"></i></div>`:'';
+  const svcB=x.svc?`<div class="k"><span>${esc(ST[x.st]||'Controllo')}</span><b>${nf(s.skm)} / ${nf(x.svc)} km</b></div><div class="bar th"><i class="b${s.sp>=1?2:s.sp>=S.warn/100?1:0}" style="width:${Math.min(100,s.sp*100).toFixed(1)}%"></i></div>`:'';
+  const tB=s.due?`<div class="k"><span>${x.st==='E'?'Omologazione':'Scadenza'}</span><b>${fd(s.due)} · ${s.dl<0?'scaduto':s.dl+' gg'}</b></div>`:(x.st==='E'?`<div class="k"><span>Omologazione</span><b>da impostare</b></div>`:'');
+  return `<div class="row${x.on?'':' off'}" tabindex="0" data-open="${x.id}"><div><div class="nm2">${esc(x.name)}${x.s1?'<span class="s1" title="Contrassegnato nella colonna S1 dell\'Appendice D">S1</span>':''}</div><div class="pn">${esc(x.pn)}${x.vl?' · '+esc(x.vl):''}${x.sn?' · S/N '+esc(x.sn):''} · dal ${fd(x.inst.d)}</div></div><div class="lf">${lifeB}${svcB}${tB}</div><div class="st c${cls(s.lv)}">${x.on?s.lab:'Non montato'}</div></div>`;
+}
+function paneEv(c,evs){
+  let run=total(c);
+  return `<div class="tools"><button class="btn pri" data-a="event">+ Evento km</button></div>${evs.length?`<div style="overflow-x:auto"><table><thead><tr><th>Data</th><th>Evento</th><th class="hide-s">Tipo</th><th class="n">Km</th><th class="n">Totale telaio</th><th></th></tr></thead><tbody>${evs.map(e=>{const r=run;run-=e.km;return `<tr><td class="nw">${fd(e.d)}</td><td>${esc(e.title)}${e.note?`<div class="pn">${esc(e.note)}</div>`:''}</td><td class="hide-s"><span class="tag">${esc(e.type)}</span></td><td class="n">${nf(e.km)}</td><td class="n">${nf(r)}</td><td class="n"><button class="btn sm" data-ev="${e.id}">Modifica</button></td></tr>`}).join('')}<tr><td colspan="4" class="pn">Km iniziali telaio</td><td class="n">${nf(c.initKm)}</td><td></td></tr></tbody></table></div>`:'<p class="empty">Nessun evento. Ogni evento aggiunge km al telaio e a tutti i componenti montati.</p>'}`;
+}
+function paneLog(c){
+  const L=c.log.slice().sort((a,b)=>b.d.localeCompare(a.d)||b.s-a.s);
+  return L.length?`<div style="overflow-x:auto;margin-top:16px"><table><thead><tr><th>Data</th><th>Intervento</th><th>Componente</th><th class="n">Km del pezzo</th><th></th></tr></thead><tbody>${L.map(l=>{const last=!c.log.some(o=>o.cid===l.cid&&aft(o,l));return `<tr><td class="nw">${fd(l.d)}</td><td><span class="tag">${l.t==='rep'?'Sostituzione':'Controllo'}</span></td><td>${esc(l.name)}<div class="pn">${esc(l.pn)}${l.sn?' · nuovo S/N '+esc(l.sn):''}${l.note?' · '+esc(l.note):''}</div></td><td class="n">${nf(l.km)}</td><td class="n">${last?`<button class="btn sm" data-undo="${l.id}">Annulla</button>`:''}</td></tr>`}).join('')}</tbody></table></div>`:'<p class="empty">Le sostituzioni e i controlli registrati appariranno qui.</p>';
+}
+
+/* ---------- dialoghi ---------- */
+function dlg(html){$('#ov').innerHTML=`<div class="ov"><div class="dlg" role="dialog" aria-modal="true">${html}</div></div>`;const f=$('#ov input,#ov select,#ov textarea');if(f)f.focus()}
+function close(){$('#ov').innerHTML='';if(pending&&art&&!ro)schedule()}
+const v=id=>{const e=document.getElementById(id);return e?e.value.trim():''};
+const opt=(arr,sel)=>arr.map(o=>`<option${o===sel?' selected':''}>${o}</option>`).join('');
+
+let evMode='km';
+function dEvent(id){
+  const c=car(),e=id?c.events.find(x=>x.id===id):null,tot=total(c);
+  dlg(`<h2>${e?'Modifica evento':'Nuovo evento'}</h2><p class="lead">I km vengono aggiunti al telaio e a ogni componente montato prima della data dell'evento.</p>
+  <div class="f2"><div class="fld"><label for="ed">Data</label><input id="ed" type="date" value="${e?e.d:TODAY}"></div><div class="fld"><label for="et">Tipo</label><select id="et">${opt(['Gara','Qualifica','Prove libere','Test','Shakedown','Trasferimento','Altro'],e?e.type:'Gara')}</select></div></div>
+  <div class="fld"><label for="en">Nome evento</label><input id="en" placeholder="es. Monza – Gara 1" value="${esc(e?e.title:'')}"></div>
+  ${e?'':`<div class="seg" role="group"><button aria-pressed="true" data-m="km">Km percorsi</button><button aria-pressed="false" data-m="odo">Contachilometri finale</button></div>`}
+  <div class="fld"><label for="ek" id="ekl">Km percorsi nell'evento</label><input id="ek" type="number" inputmode="numeric" min="0" step="1" value="${e?e.km:''}"><span class="hint" id="ekh">Totale telaio attuale: ${nf(tot)} km</span></div>
+  <div class="fld"><label for="eo">Note</label><input id="eo" value="${esc(e?e.note:'')}"></div>
+  <div class="foot">${e?'<button class="btn dng l" data-x="evdel">Elimina</button>':''}<button class="btn" data-x="close">Annulla</button><button class="btn pri" data-x="evsave" data-id="${e?e.id:''}">Salva</button></div>`);
+  const upd=()=>{const n=+v('ek')||0;$('#ekh').textContent=evMode==='km'?`Totale telaio dopo: ${nf(tot+n)} km`:`Km dell'evento: ${nf(Math.max(0,n-tot))} km`};
+  $('#ek').oninput=upd;
+  document.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{evMode=b.dataset.m;document.querySelectorAll('[data-m]').forEach(x=>x.setAttribute('aria-pressed',x===b));$('#ekl').textContent=evMode==='km'?"Km percorsi nell'evento":'Lettura contachilometri a fine evento';upd()});
+  evMode='km';
+}
+function saveEvent(id){
+  const c=car(),mode=evMode;
+  let km=+v('ek');const d=v('ed')||TODAY,title=v('en')||'Evento';
+  if(!id&&mode==='odo')km=km-total(c);
+  if(!(km>=0)||v('ek')===''){$('#ekh').textContent='Inserisci un numero di km valido.';$('#ekh').style.color='var(--red)';return}
+  close();
+  mutate(()=>{if(id){Object.assign(c.events.find(x=>x.id===id),{d,title,type:v('et')||'Altro',km:Math.round(km),note:v('eo')})}else c.events.push({id:uid(),d,s:S.seq++,title,type:v('et'),km:Math.round(km),note:v('eo')});},id?'Evento aggiornato':`Aggiunti ${nf(km)} km`);
+}
+const PRE={tag:{l:'Tagliando motore',f:x=>['Olio motore','Filtro olio motore','Candele','Filtro aria'].includes(x.name)},ds:{l:'Semiassi',f:x=>/^Semiasse/.test(x.name)},cer:{l:'Cerchi',f:x=>/^Cerchi/.test(x.name)},sv5:{l:'Tutti i controlli ≤ 5.000 km',f:x=>x.svc&&x.svc<=5000},sv15:{l:'Tutti i controlli 15.000 km',f:x=>x.svc===15000},due:{l:'Solo quelli dovuti',f:(x,s)=>s.lv>=1}};
+function dBatch(kind,ids){
+  const c=car(),rep=kind==='rep';
+  const list=c.comps.filter(x=>x.on&&(rep||x.svc||x.mo)).map(x=>({x,s:stat(c,x)})).sort((a,b)=>b.s.score-a.s.score);
+  const pre=Object.entries(PRE).filter(([k])=>rep?['tag','ds','cer','due'].includes(k):['sv5','sv15','due'].includes(k));
+  dlg(`<h2>${rep?'Sostituisci componenti':'Registra controllo'}</h2><p class="lead">${rep?'Il contatore dei componenti selezionati riparte da zero (o dai km del pezzo, se usato).':'Azzera il contatore del controllo periodico; la vita del componente continua.'}</p>
+  <div class="pre">${pre.map(([k,p])=>`<button class="chip" data-pre="${k}">${p.l}</button>`).join('')}</div>
+  <div class="fld"><label for="bq">Filtra</label><input id="bq" type="search" placeholder="Cerca componente"></div>
+  <div class="pick" id="pick">${list.map(({x,s})=>`<label data-n="${esc((x.name+' '+x.pn).toLowerCase())}"><input type="checkbox" value="${x.id}"${ids&&ids.includes(x.id)?' checked':''}><span>${esc(x.name)}<span class="st c${cls(s.lv)}" style="display:inline-flex;margin-left:8px;font-size:12px">${s.lab}</span></span><span class="pn">${esc(x.pn)}</span></label>`).join('')}</div>
+  <div class="f2"><div class="fld"><label for="bd">Data intervento</label><input id="bd" type="date" value="${TODAY}"><span class="hint">Conta solo gli eventi successivi a questa data (o inseriti dopo, nello stesso giorno).</span></div>
+  ${rep?`<div class="fld"><label for="bk">Km già percorsi dal nuovo pezzo</label><input id="bk" type="number" min="0" value="0"><span class="hint">0 per un pezzo nuovo.</span></div>`:`<div class="fld"><label for="be">Esito</label><select id="be">${opt(['Conforme','Conforme con nota','Da riparare'])}</select></div>`}</div>
+  ${rep?`<div class="f2"><div class="fld"><label for="bs">Nuovo S/N (solo se un pezzo)</label><input id="bs"></div><div class="fld"><label for="bx">Nuova scadenza omologazione</label><input id="bx" type="date"><span class="hint">Per sedile, cinture, estintore, serbatoio.</span></div></div>`:''}
+  <div class="fld"><label for="bn">Note</label><input id="bn"></div>
+  <div class="foot"><span class="pn l" id="bc"></span><button class="btn" data-x="close">Annulla</button><button class="btn pri" data-x="${rep?'repsave':'svcsave'}">Conferma</button></div>`);
+  const cnt=()=>{$('#bc').textContent=document.querySelectorAll('#pick input:checked').length+' selezionati'};cnt();
+  $('#pick').onchange=cnt;
+  $('#bq').oninput=()=>{const t=v('bq').toLowerCase();document.querySelectorAll('#pick label').forEach(l=>l.style.display=l.dataset.n.includes(t)?'':'none')};
+  document.querySelectorAll('[data-pre]').forEach(b=>b.onclick=()=>{const p=PRE[b.dataset.pre];document.querySelectorAll('#pick input').forEach(i=>{const x=c.comps.find(k=>k.id===i.value);if(p.f(x,stat(c,x)))i.checked=true});cnt()});
+}
+function saveBatch(kind){
+  const c=car(),ids=[...document.querySelectorAll('#pick input:checked')].map(i=>i.value);
+  if(!ids.length){$('#bc').textContent='Seleziona almeno un componente';$('#bc').style.color='var(--red)';return}
+  const d=v('bd')||TODAY,note=v('bn'),bk=+v('bk')||0,sn=v('bs'),bx=v('bx'),es=v('be');
+  close();
+  mutate(()=>{const ref={d,s:S.seq++};ids.forEach(id=>{const x=c.comps.find(k=>k.id===id),s=stat(c,x);
+    c.log.push({id:uid(),t:kind,d,s:ref.s,cid:id,name:x.name,pn:x.pn,km:kmAt(c,x,ref),note:kind==='svc'?[es,note].filter(Boolean).join(' – '):note,sn:ids.length===1?sn:'',prev:snap(x)});
+    if(kind==='rep'){x.inst={...ref};x.startKm=bk;x.svcStart=0;x.svcAt=null;if(ids.length===1&&sn)x.sn=sn;if(bx&&(x.st==='E'||x.exp))x.exp=bx;else if(x.st==='E')x.exp=null}
+    else x.svcAt={...ref};});
+  },`${kind==='rep'?'Sostituiti':'Controllati'} ${ids.length} component${ids.length===1?'e':'i'}`);
+}
+function dComp(id){
+  const c=car(),x=c.comps.find(k=>k.id===id),s=stat(c,x),[t]=meterTxt(x,s);
+  const h=c.log.filter(l=>l.cid===id).sort((a,b)=>b.d.localeCompare(a.d)||b.s-a.s);
+  dlg(`<h2>${esc(x.name)}</h2><p class="lead">${esc(x.pn)} · ${esc(x.en||'')}${x.hg?' · HG '+esc(x.hg):''}</p>
+  <div class="st c${cls(s.lv)}">${x.on?s.lab+' — '+t:'Non montato'}</div>
+  <div class="kv"><div><b>${nf(s.km)}</b><span>km del pezzo</span></div>${x.life?`<div><b>${nf(x.life)}</b><span>vita max km</span></div>`:''}${x.svc?`<div><b>${nf(s.skm)} / ${nf(x.svc)}</b><span>km dall'ultimo controllo</span></div>`:''}${s.due?`<div><b>${fd(s.due)}</b><span>${x.st==='E'?'scadenza omologazione':'prossima scadenza'}</span></div>`:''}</div>
+  ${x.st?`<p class="pn">${esc(ST[x.st])}${x.mo?` · ogni ${x.mo} mesi`:''}</p>`:''}
+  <div class="foot" style="justify-content:flex-start"><button class="btn pri" data-x="one-rep" data-id="${id}">Sostituisci</button>${x.svc||x.mo?`<button class="btn" data-x="one-svc" data-id="${id}">Controllo eseguito</button>`:''}<button class="btn" data-x="edit" data-id="${id}">Modifica</button></div>
+  <h2 style="margin-top:18px;font-size:20px">Storico</h2>${h.length?`<ul class="hist">${h.map(l=>`<li>${fd(l.d)} · ${l.t==='rep'?'Sostituito':'Controllato'} a ${nf(l.km)} km${l.sn?' · S/N '+esc(l.sn):''}${l.note?' · '+esc(l.note):''}</li>`).join('')}</ul>`:'<p class="pn">Montato dal '+fd(x.inst.d)+'. Nessun intervento registrato.</p>'}
+  <div class="foot"><button class="btn" data-x="close">Chiudi</button></div>`);
+}
+function dEdit(id){
+  const c=car(),x=id?c.comps.find(k=>k.id===id):null,s=x?stat(c,x):null;
+  dlg(`<h2>${x?'Modifica componente':'Nuovo componente'}</h2><p class="lead">${x?'Correggi i limiti o i km attuali, ad esempio per un pezzo già usato.':'Aggiungi un componente non presente nell\'elenco del manuale.'}</p>
+  ${x&&x.vars?`<div class="fld"><label for="cv">Versione montata</label><select id="cv">${x.vars.map((w,i)=>`<option value="${i}"${i===x.pick?' selected':''}>${esc(w.pn)} – ${esc(w.vl)}${w.life?' – vita '+nf(w.life)+' km':''}</option>`).join('')}</select></div>`:''}
+  <div class="fld"><label for="cn">Nome</label><input id="cn" value="${esc(x?x.name:'')}"></div>
+  <div class="f2"><div class="fld"><label for="cp">Codice</label><input id="cp" value="${esc(x?x.pn:'')}"></div><div class="fld"><label for="cs">S/N</label><input id="cs" value="${esc(x?x.sn:'')}"></div>
+  <div class="fld"><label for="cl">Vita max (km)</label><input id="cl" type="number" min="0" value="${x&&x.life||''}"><span class="hint">Vuoto = nessun limite</span></div><div class="fld"><label for="ci">Controllo ogni (km)</label><input id="ci" type="number" min="0" value="${x&&x.svc||''}"></div>
+  <div class="fld"><label for="cm">Intervallo a tempo (mesi)</label><input id="cm" type="number" min="0" value="${x&&x.mo||''}"></div><div class="fld"><label for="cx">Data scadenza fissa</label><input id="cx" type="date" value="${x&&x.exp||''}"></div>
+  <div class="fld"><label for="ck">Km attuali del pezzo</label><input id="ck" type="number" min="0" value="${s?Math.round(s.km):0}"></div><div class="fld"><label for="cc">Km dall'ultimo controllo</label><input id="cc" type="number" min="0" value="${s?Math.round(s.skm):0}"></div>
+  ${x?'':`<div class="fld"><label for="cg">Gruppo</label><select id="cg">${Object.entries(GR).map(([k,l])=>`<option value="${k}"${k==='cus'?' selected':''}>${l}</option>`).join('')}</select></div>`}
+  </div>
+  ${x?`<label style="display:flex;gap:10px;align-items:center;min-height:44px"><input id="con" type="checkbox"${x.on?' checked':''} style="width:20px;height:20px"> Montato su questo telaio</label>`:''}
+  <div class="foot">${x&&x.custom?'<button class="btn dng l" data-x="cdel" data-id="'+x.id+'">Elimina</button>':''}<button class="btn" data-x="close">Annulla</button><button class="btn pri" data-x="csave" data-id="${x?x.id:''}">Salva</button></div>`);
+  const cv=$('#cv');if(cv)cv.onchange=()=>{const w=x.vars[+cv.value];$('#cp').value=w.pn;$('#cl').value=w.life||'';$('#ci').value=w.svc||''};
+}
+function saveComp(id){
+  const c=car();const name=v('cn');if(!name){$('#cn').focus();return}
+  const vals={name,pn:v('cp')||'—',sn:v('cs'),life:+v('cl')||0,svc:+v('ci')||0,mo:+v('cm')||0,exp:v('cx')||null};
+  const km=+v('ck')||0,skm=+v('cc')||0,cv=$('#cv'),con=$('#con');
+  close();
+  mutate(()=>{let x=id?c.comps.find(k=>k.id===id):null;
+    if(!x){x={id:'u'+uid(),g:v('cg')||'cus',hg:'',en:'Aggiunto dall\'utente',st:'',s1:false,on:true,custom:true,inst:{d:TODAY,s:S.seq++},svcAt:null,startKm:0,svcStart:0};c.comps.push(x)}
+    if(cv&&x.vars){x.pick=+cv.value;const w=x.vars[x.pick];Object.assign(x,{en:w.en,st:w.st,s1:w.s1,vl:w.vl})}
+    Object.assign(x,vals);if(con)x.on=con.checked;
+    if(!x.st&&x.svc)x.st='V';if(!x.st&&x.mo)x.st='S';
+    const after=sumAft(c,x.inst);x.startKm=km-after;
+    if(x.svcAt&&aft(x.svcAt,x.inst))x.svcAt=null;x.svcStart=skm-after;
+  },'Componente salvato');
+}
+function dCar(edit){
+  const c=edit?car():null;
+  dlg(`<h2>${c?'Impostazioni telaio':'Nuovo telaio'}</h2><p class="lead">${c?'Dati del telaio, soglie di avviso e backup.':'Tutti i componenti del manuale vengono creati automaticamente.'}</p>
+  <div class="f2"><div class="fld"><label for="tn">Nome</label><input id="tn" value="${esc(c?c.name:'M4 GT4 EVO #'+(S.cars.filter(k=>!k.demo).length+1))}"></div><div class="fld"><label for="tc">Numero telaio</label><input id="tc" value="${esc(c?c.chassis:'')}"></div>
+  <div class="fld"><label for="tk">Km iniziali telaio</label><input id="tk" type="number" min="0" value="${c?c.initKm:0}"><span class="hint">Km già percorsi prima del primo evento registrato.</span></div>
+  ${c?`<div class="fld"><label for="tw">Avviso “in scadenza” da (%)</label><input id="tw" type="number" min="50" max="99" value="${S.warn}"></div><div class="fld"><label for="twd">Avviso scadenze a tempo (giorni)</label><input id="twd" type="number" min="1" value="${S.warnDays}"></div>`:`<div class="fld"><label for="ts">Km dei componenti</label><select id="ts"><option value="0">Tutti nuovi (0 km)</option><option value="1">Uguali ai km del telaio</option></select><span class="hint">Potrai correggere ogni pezzo singolarmente.</span></div>`}
+  </div>
+  ${c?`<h2 style="font-size:20px;margin-top:8px">Backup</h2><p class="pn">Copia i dati per conservarli o per spostarli; incolla un backup per ripristinarlo.</p><div class="fld"><label for="tj">Dati (JSON)</label><textarea id="tj" rows="3" placeholder="Incolla qui un backup per importarlo"></textarea></div><div class="foot" style="justify-content:flex-start;margin-top:0"><button class="btn sm" data-x="copy">Copia backup</button><button class="btn sm" data-x="import">Importa backup</button></div>`:''}
+  <div class="foot">${c&&S.cars.length>1?'<button class="btn dng l" data-x="cardel">Elimina telaio</button>':''}<button class="btn" data-x="close">Annulla</button><button class="btn pri" data-x="carsave" data-edit="${edit?1:''}">${c?'Salva':'Crea telaio'}</button></div>`);
+}
+function saveCar(edit){
+  const name=v('tn')||'M4 GT4',ch=v('tc'),k=+v('tk')||0;
+  if(edit){const c=car(),w=+v('tw'),wd=+v('twd');close();mutate(()=>{c.name=name;c.chassis=ch;c.initKm=k;if(w>=50&&w<100)S.warn=w;if(wd>0)S.warnDays=wd},'Impostazioni salvate')}
+  else{const same=v('ts')==='1';close();mutate(()=>{const n=newCar(name,ch,k,same,TODAY);S.cars=S.cars.filter(x=>!x.demo);S.cars.push(n);S.cur=n.id},'Telaio creato')}
+}
+let tt=null;
+function toast(m,u){clearTimeout(tt);let el=$('#toast');if(!el){el=document.createElement('div');el.id='toast';el.className='toast';el.setAttribute('role','status');document.body.appendChild(el)}el.innerHTML=`<span>${esc(m)}</span>${u&&undo.length?'<button data-x="undo">Annulla</button>':''}`;tt=setTimeout(()=>el.remove(),6000)}
+
+/* ---------- eventi ---------- */
+document.addEventListener('click',e=>{
+  const b=e.target.closest('button,[data-open]');if(!b)return;const d=b.dataset;
+  if(d.a==='event')return dEvent();
+  if(d.a==='rep')return dBatch('rep');
+  if(d.a==='svc')return dBatch('svc');
+  if(d.a==='settings')return dCar(true);
+  if(d.a==='newcar')return dCar(false);
+  if(d.a==='addcomp')return dEdit();
+  if(d.tab){tab=d.tab;try{history.replaceState(null,'','#'+tab)}catch(_){}return render()}
+  if(d.f!==undefined&&!b.closest('#ov')){filt=b.classList.contains('t')?d.f:(filt===d.f?'all':d.f);tab='comp';render();if(b.classList.contains('t'))$('#pane').scrollIntoView({behavior:'smooth'});return}
+  if(d.open&&!b.closest('#ov'))return dComp(d.open);
+  if(d.ev)return dEvent(d.ev);
+  if(d.undo){const c=car(),l=c.log.find(o=>o.id===d.undo);return mutate(()=>{const x=c.comps.find(k=>k.id===l.cid);if(x&&l.prev)Object.assign(x,l.prev);c.log=c.log.filter(o=>o.id!==l.id)},'Intervento annullato')}
+  switch(d.x){
+    case 'close':return close();
+    case 'evsave':return saveEvent(d.id);
+    case 'evdel':{const c=car(),id=$('[data-x=evsave]').dataset.id;close();return mutate(()=>{c.events=c.events.filter(x=>x.id!==id)},'Evento eliminato')}
+    case 'repsave':return saveBatch('rep');
+    case 'svcsave':return saveBatch('svc');
+    case 'one-rep':return dBatch('rep',[d.id]);
+    case 'one-svc':return dBatch('svc',[d.id]);
+    case 'edit':return dEdit(d.id);
+    case 'csave':return saveComp(d.id);
+    case 'cdel':{const c=car();close();return mutate(()=>{c.comps=c.comps.filter(x=>x.id!==d.id)},'Componente eliminato')}
+    case 'carsave':return saveCar(!!d.edit);
+    case 'cardel':{const id=S.cur;close();return mutate(()=>{S.cars=S.cars.filter(x=>x.id!==id);S.cur=S.cars[0].id},'Telaio eliminato')}
+    case 'copy':{const t=JSON.stringify(S);$('#tj').value=t;$('#tj').select();try{navigator.clipboard.writeText(t).then(()=>toast('Backup copiato negli appunti'),()=>toast('Seleziona il testo e copialo'))}catch(_){toast('Seleziona il testo e copialo')}return}
+    case 'import':{let o;try{o=JSON.parse(v('tj'))}catch(_){}if(!o||!Array.isArray(o.cars)||!o.cars.length){$('#tj').style.borderColor='var(--red)';return}close();return mutate(()=>{S=o},'Backup importato')}
+    case 'undo':{if(!undo.length)return;S=JSON.parse(undo.pop());S.rev=Date.now();try{localStorage.setItem('m4gt4-mileage',JSON.stringify(S))}catch(_){}render();schedule();$('#toast')&&$('#toast').remove();return}
+  }
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'&&$('#ov').innerHTML)close();
+  if(e.key==='Enter'&&e.target.classList.contains('row'))dComp(e.target.dataset.open);
+});
+document.addEventListener('change',e=>{if(e.target.id==='carsel'){const val=e.target.value;if(val==='+'){e.target.value=S.cur;return dCar(false)}S.cur=val;try{localStorage.setItem('m4gt4-mileage',JSON.stringify(S))}catch(_){}render()}});
+document.addEventListener('input',e=>{if(e.target.id==='q'){q=e.target.value;const p=e.target.selectionStart;render();const i=$('#q');i.focus();i.setSelectionRange(p,p)}});
+$('#ov').addEventListener('click',e=>{if(e.target.classList.contains('ov'))close()});
+
+render();
+addEventListener('scroll',()=>{const y=scrollY,n=mini?y>40:y>140;if(n!==mini){mini=n;const h=$('#hd');if(h)h.classList.toggle('mini',mini)}},{passive:true});
+let tries=0;const hook=()=>{if(window.claude&&window.claude.use){window.claude.use('artifact').then(a=>{art=a;if(a){setSave('Salvato');if(pending)schedule()}}).catch(()=>{})}else if(++tries<20)setTimeout(hook,250)};hook();
+}
+</script>
+</body>
+</html>
